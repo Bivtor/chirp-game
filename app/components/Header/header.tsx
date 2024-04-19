@@ -48,26 +48,19 @@ export default function Header() {
     return (
         <header className="w-full py-8  text-[color:var(--theme-text)] ">
             <div className="flex justify-between items-center">
-                <div className="flex flex-row space-x-10">
-                    <Link href='/'>
+                <Link href='/'>
+                    <div className="flex flex-row space-x-10">
+
                         <div className="relative">
                             <h1
-                                className="text-2xl font-bold hover:text-[color:var(--theme-hover)] duration-[time:var(--transition-time)] hover:cursor-pointer"
+                                className="text-3xl font-bold hover:text-[color:var(--theme-hover)] duration-[time:var(--transition-time)] hover:cursor-pointer"
                             >
                                 Chirp
                             </h1>
                         </div>
-                    </Link>
-                    <Link href='/howtoplay'>
-                        <div className="relative">
-                            <h1
-                                className="text-2xl font-bold hover:text-[color:var(--theme-hover)] duration-[time:var(--transition-time)] hover:cursor-pointer"
-                            >
-                                How To Play
-                            </h1>
-                        </div>
-                    </Link>
-                </div>
+
+                    </div>
+                </Link>
                 <div></div>
             </div>
         </header>

@@ -1,16 +1,25 @@
 import Link from "next/link"
 import Image from "next/image"
 import styles from '@/app/components/MainLayout/menu.module.css'
+import React from 'react'
 
 import Profile from '@/public/assets/icons/profile.svg'
 import Notification from '@/public/assets/icons/notification.svg'
 import Home from '@/public/assets/icons/home.svg'
+import NewPost from '@/public/assets/icons/new-post.svg'
 
-export default function NavOptions() {
+import { UserValues } from "@/app/page"
+
+const NavOptions: React.FC<{ FormValues: UserValues, NewPostClickHandler: () => void }> = ({ FormValues, NewPostClickHandler }) => {
+
+    const handleNewPostClick = () => {
+        NewPostClickHandler()
+    }
+
     return (
-        <div className="flex flex-column justify-center w-full text-[color:var(--theme-text)]">
+        <div className="flex flex-column justify-center w-full text-[color:var(--theme-text)] ">
             <ul className="flex flex-col  gap-y-4 py-5">
-                <li className="flex flex-row jusitfy-content align-items">
+                <li className="flex flex-row jusitfy-content align-items hover:text-[color:var(--theme-hover)]">
                     <Link href="/" >
                         <div className="flex flex-row justify-center gap-x-3 items-center ">
                             <div className={styles['menu-icon']}>
@@ -21,27 +30,36 @@ export default function NavOptions() {
                         </div>
                     </Link>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items">
+                <li className="flex flex-row jusitfy-content align-items hover:text-[color:var(--theme-hover)]">
                     <Link href="/notification" >
                         <div className="flex flex-row justify-center gap-x-3 items-center ">
-                            <div>
-                                <Image src={Notification} width={30} alt="Home Icon">
+                            <div className="hover:text-[color:var(--theme-hover)]">
+                                <Image src={Notification} width={30} alt="Notifications Icon">
                                 </Image>
                             </div>
-                            Notifications
+                            Follow Requests
                         </div>
                     </Link>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items ">
+                <li className="flex flex-row jusitfy-content align-items  hover:text-[color:var(--theme-hover)]">
                     <Link href="/profile" >
                         <div className="flex flex-row justify-center gap-x-3 items-center ">
-                            <div className="">
-                                <Image src={Profile} width={30} alt="Home Icon">
+                            <div>
+                                <Image src={Profile} width={30} alt="My Profile Icon">
                                 </Image>
                             </div>
                             My Profile
                         </div>
                     </Link>
+                </li>
+                <li className="flex flex-row jusitfy-content align-items  hover:text-[color:var(--theme-hover)]">
+                    <div className="flex flex-row justify-center gap-x-3 items-center hover:cursor-pointer" onClick={handleNewPostClick}>
+                        <div className="">
+                            <Image src={NewPost} width={30} alt="Create New Post Icon">
+                            </Image>
+                        </div>
+                        Create Post
+                    </div>
                 </li>
             </ul>
 
@@ -49,3 +67,4 @@ export default function NavOptions() {
 
     )
 }
+export default NavOptions;
