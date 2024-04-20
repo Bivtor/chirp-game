@@ -1,12 +1,9 @@
-import { UserValues } from '@/app/page';
+import { UserInterface } from '@/app/page';
 import Image from 'next/image';
 import {
     Formik,
-    FormikHelpers,
-    FormikProps,
     Form,
     Field,
-    FieldProps,
 } from 'formik';
 import React, { useState, useEffect } from 'react';
 
@@ -15,8 +12,7 @@ export interface NewPostValues {
     message: string;
 }
 
-const ShowNewPostForm: React.FC<{ initialValues: NewPostValues, incomingSubmit: (data: NewPostValues) => void, backButtonHandler: () => void, userValues: UserValues }> = ({ incomingSubmit, initialValues, backButtonHandler, userValues }) => {
-
+const ShowNewPostForm: React.FC<{ initialValues: NewPostValues, incomingSubmit: (data: NewPostValues) => void, backButtonHandler: () => void, userValues: UserInterface }> = ({ incomingSubmit, initialValues, backButtonHandler, userValues }) => {
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
     useEffect(() => {

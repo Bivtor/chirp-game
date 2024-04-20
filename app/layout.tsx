@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="px-24 pb-10">
+    <html lang="en" className="px-24">
       <body className={inter.className}>
         <Header />
         {children}
@@ -25,4 +25,4 @@ export default function RootLayout({
   );
 }
 
-export { metadata, RootLayout };
+export { metadata };

@@ -4,9 +4,9 @@ import {
     Field,
 } from 'formik';
 import React from 'react';
-import { UserValues } from '@/app/page'
+import { UserInterface } from '@/app/page'
 
-const StartQuestions: React.FC<{ initialValues: UserValues, incomingSubmit: (data: UserValues) => void; }> = ({ incomingSubmit, initialValues }) => {
+const StartQuestions: React.FC<{ initialValues: UserInterface, incomingSubmit: (data: UserInterface) => void; }> = ({ incomingSubmit, initialValues }) => {
     return (
         <div className="flex flex-col w-full h-full  text-[color:var(--theme-text)] border border-black rounded-md pb-6">
             <div className="flex flex-row justify-center align-items py-5">
@@ -43,6 +43,8 @@ const StartQuestions: React.FC<{ initialValues: UserValues, incomingSubmit: (dat
                                 <option value="red">Red Bird</option>
                                 <option value="green">Green Bird</option>
                                 <option value="yellow">Yellow Bird</option>
+                                <option value="purple">Purple Bird</option>
+                                <option value="lightred">Light-Red Bird</option>
                             </Field>
 
                             <label htmlFor="interests">Interests:</label>
@@ -56,6 +58,7 @@ const StartQuestions: React.FC<{ initialValues: UserValues, incomingSubmit: (dat
                             >
                                 <option value="sports">Sports</option>
                                 <option value="fashion">Fashion</option>
+                                <option value="video games">Video Games</option>
                             </Field>
                             <div className='flex justify-center align-items '>
                                 <button className='hover:text-[color:var(--theme-hover)]' type='submit'>Start Game!</button>

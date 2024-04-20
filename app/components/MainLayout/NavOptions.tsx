@@ -8,52 +8,58 @@ import Notification from '@/public/assets/icons/notification.svg'
 import Home from '@/public/assets/icons/home.svg'
 import NewPost from '@/public/assets/icons/new-post.svg'
 
-import { UserValues } from "@/app/page"
+import { UserInterface } from "@/app/page"
 
-const NavOptions: React.FC<{ FormValues: UserValues, NewPostClickHandler: () => void }> = ({ FormValues, NewPostClickHandler }) => {
 
+const NavOptions: React.FC<{ FormValues: UserInterface, NewPostClickHandler: () => void, handleChangeCenterPanelClick: (show: string, p?: UserInterface) => void }> = ({ FormValues, NewPostClickHandler, handleChangeCenterPanelClick }) => {
     const handleNewPostClick = () => {
         NewPostClickHandler()
+    }
+
+    const handleChangeCenterPanelToNotificationsClick = () => {
+        handleChangeCenterPanelClick('notifications')
+    }
+
+    const handleChangeCenterPanelToHomeClick = () => {
+        handleChangeCenterPanelClick('home')
+    }
+
+    const handleChangeCenterPanelToMyProfileClick = () => {
+        handleChangeCenterPanelClick('profile', FormValues)
     }
 
     return (
         <div className="flex flex-column justify-center w-full text-[color:var(--theme-text)] ">
             <ul className="flex flex-col  gap-y-4 py-5">
-                <li className="flex flex-row jusitfy-content align-items hover:text-[color:var(--theme-hover)]">
-                    <Link href="/" >
-                        <div className="flex flex-row justify-center gap-x-3 items-center ">
-                            <div className={styles['menu-icon']}>
-                                <Image src={Home} width={30} alt="Home Icon">
-                                </Image>
-                            </div>
-                            Home
+                <li className="flex flex-row jusitfy-content align-items hover:text-[color:var(--theme-hover)] hover:cursor-pointer" onClick={handleChangeCenterPanelToHomeClick}>
+                    <div className="flex flex-row justify-center gap-x-3 items-center ">
+                        <div className={styles['menu-icon']}>
+                            <Image src={Home} width={30} alt="Home Icon">
+                            </Image>
                         </div>
-                    </Link>
+                        Home
+                    </div>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items hover:text-[color:var(--theme-hover)]">
-                    <Link href="/notification" >
-                        <div className="flex flex-row justify-center gap-x-3 items-center ">
-                            <div className="hover:text-[color:var(--theme-hover)]">
-                                <Image src={Notification} width={30} alt="Notifications Icon">
-                                </Image>
-                            </div>
-                            Follow Requests
+                <li className="flex flex-row jusitfy-content align-items hover:text-[color:var(--theme-hover)] hover:cursor-pointer" onClick={handleChangeCenterPanelToNotificationsClick}>
+                    <div className="flex flex-row justify-center gap-x-3 items-center ">
+                        <div className="hover:text-[color:var(--theme-hover)]">
+                            <Image src={Notification} width={30} alt="Notifications Icon">
+                            </Image>
                         </div>
-                    </Link>
+                        Follow Requests
+                    </div>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items  hover:text-[color:var(--theme-hover)]">
-                    <Link href="/profile" >
-                        <div className="flex flex-row justify-center gap-x-3 items-center ">
-                            <div>
-                                <Image src={Profile} width={30} alt="My Profile Icon">
-                                </Image>
-                            </div>
-                            My Profile
+                <li className="flex flex-row jusitfy-content align-items  hover:text-[color:var(--theme-hover)] hover:cursor-pointer" onClick={handleChangeCenterPanelToMyProfileClick}>
+                    <div className="flex flex-row justify-center gap-x-3 items-center ">
+                        <div>
+                            <Image src={Profile} width={30} alt="My Profile Icon">
+                            </Image>
                         </div>
-                    </Link>
+                        My Profile
+                    </div>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items  hover:text-[color:var(--theme-hover)]">
-                    <div className="flex flex-row justify-center gap-x-3 items-center hover:cursor-pointer" onClick={handleNewPostClick}>
+                <li className="flex flex-row jusitfy-content align-items  hover:text-[color:var(--theme-hover)] hover:cursor-pointer" onClick={handleNewPostClick}>
+                    <div className="flex flex-row justify-center gap-x-3 items-center " >
                         <div className="">
                             <Image src={NewPost} width={30} alt="Create New Post Icon">
                             </Image>
