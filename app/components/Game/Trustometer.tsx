@@ -1,11 +1,5 @@
+import { ScoreInterace } from '@/app/page'
 import React from 'react'
-
-export interface ScoreInterace {
-    score: number;
-    interest: string;
-    stage: number;
-    notifications: number;
-}
 
 const Trustometer: React.FC<{ score: ScoreInterace }> = ({ score }) => {
     return (

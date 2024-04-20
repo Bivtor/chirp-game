@@ -1,8 +1,8 @@
-import { FollowRequestInterface, UserInterface } from '@/app/page'
+import { FollowRequestInterface, GeneralUserInterface } from '@/app/page'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-const Notification: React.FC<{ user_from_requests: FollowRequestInterface, handleProfileClick: (show: string, profile?: UserInterface) => void, handleAcceptDenyClick: (result: FollowRequestInterface) => void }> = ({ user_from_requests, handleProfileClick, handleAcceptDenyClick }) => {
+const Notification: React.FC<{ user_from_requests: FollowRequestInterface, handleProfileClick: (show: string, profile?: GeneralUserInterface) => void, handleAcceptDenyClick: (result: FollowRequestInterface) => void }> = ({ user_from_requests, handleProfileClick, handleAcceptDenyClick }) => {
     const [avatarUrl, setAvatarUrl] = useState<string>('');
 
     useEffect(() => {

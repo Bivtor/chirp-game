@@ -8,10 +8,10 @@ import Notification from '@/public/assets/icons/notification.svg'
 import Home from '@/public/assets/icons/home.svg'
 import NewPost from '@/public/assets/icons/new-post.svg'
 
-import { UserInterface } from "@/app/page"
+import { GeneralUserInterface } from "@/app/page"
 
 
-const NavOptions: React.FC<{ FormValues: UserInterface, NewPostClickHandler: () => void, handleChangeCenterPanelClick: (show: string, p?: UserInterface) => void }> = ({ FormValues, NewPostClickHandler, handleChangeCenterPanelClick }) => {
+const NavOptions: React.FC<{ NewPostClickHandler: () => void, handleChangeCenterPanelClick: (show: string, p?: GeneralUserInterface) => void }> = ({ NewPostClickHandler, handleChangeCenterPanelClick }) => {
     const handleNewPostClick = () => {
         NewPostClickHandler()
     }
@@ -25,7 +25,7 @@ const NavOptions: React.FC<{ FormValues: UserInterface, NewPostClickHandler: () 
     }
 
     const handleChangeCenterPanelToMyProfileClick = () => {
-        handleChangeCenterPanelClick('profile', FormValues)
+        handleChangeCenterPanelClick('myprofile', undefined)
     }
 
     return (

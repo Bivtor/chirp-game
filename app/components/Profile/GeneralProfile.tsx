@@ -1,10 +1,11 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { UserInterface } from '../../page'
+import { GeneralUserInterface } from '../../page'
 import Image from 'next/image'
-import Post, { PostType } from '../Post/Post'
+import Post from '../Post/Post'
+import { PostType } from '@/app/page'
 
-const ProfilePage: React.FC<{ UserObject: UserInterface, MyPosts: PostType[] }> = ({ UserObject, MyPosts }) => {
+const GeneralProfilePage: React.FC<{ UserObject: GeneralUserInterface }> = ({ UserObject }) => {
     // const [userData, setUserData] = useState<UserInterface>({ avatar: '', bio: '', interests: '', userName: '' }) // new post form or not
     const [avatarUrl, setAvatarUrl] = useState<string>('');
 
@@ -40,9 +41,9 @@ const ProfilePage: React.FC<{ UserObject: UserInterface, MyPosts: PostType[] }> 
                 {UserObject.userName}&apos;s Posts:
             </div>
 
-            {MyPosts.length > 0 ? (
+            {UserObject.posts.length > 0 ? (
                 <div className='flex flex-col w-full gap-t-4 overflow-y-scroll h-full'>
-                    {MyPosts.map((post) => (
+                    {UserObject.posts.map((post) => (
                         <Post post={post} key={post.key} />
                     ))}
                 </div>
@@ -53,4 +54,4 @@ const ProfilePage: React.FC<{ UserObject: UserInterface, MyPosts: PostType[] }> 
     );
 
 }
-export default ProfilePage
+export default GeneralProfilePage

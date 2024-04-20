@@ -2,14 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Timestamp } from 'firebase/firestore';
 import moment from 'moment';
+import { PostType } from '@/app/page';
 
-export interface PostType {
-    key: number;
-    message: string;
-    username: string;
-    time: Timestamp;
-    avatar: string;
-}
+
 
 const Post: React.FC<{ post: PostType }> = ({ post }) => {
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);

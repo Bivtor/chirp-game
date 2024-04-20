@@ -4,9 +4,9 @@ import {
     Field,
 } from 'formik';
 import React from 'react';
-import { UserInterface } from '@/app/page'
+import { PrimaryUserInterface } from '@/app/page'
 
-const StartQuestions: React.FC<{ initialValues: UserInterface, incomingSubmit: (data: UserInterface) => void; }> = ({ incomingSubmit, initialValues }) => {
+const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSubmit: (data: PrimaryUserInterface) => void; }> = ({ incomingSubmit, initialValues }) => {
     return (
         <div className="flex flex-col w-full h-full  text-[color:var(--theme-text)] border border-black rounded-md pb-6">
             <div className="flex flex-row justify-center align-items py-5">

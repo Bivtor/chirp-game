@@ -1,4 +1,4 @@
-import { UserInterface } from '@/app/page';
+import { GeneralUserInterface, PrimaryUserInterface } from '@/app/page';
 import Image from 'next/image';
 import {
     Formik,
@@ -12,9 +12,10 @@ export interface NewPostValues {
     message: string;
 }
 
-const ShowNewPostForm: React.FC<{ initialValues: NewPostValues, incomingSubmit: (data: NewPostValues) => void, backButtonHandler: () => void, userValues: UserInterface }> = ({ incomingSubmit, initialValues, backButtonHandler, userValues }) => {
-    const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+const ShowNewPostForm: React.FC<{ initialValues: NewPostValues, incomingSubmit: (data: NewPostValues) => void, backButtonHandler: () => void, userValues: PrimaryUserInterface }> = ({ incomingSubmit, initialValues, backButtonHandler, userValues }) => {
+    const [avatarUrl, setAvatarUrl] = useState<string | null>(null); // avatar state
 
+    // useEffect for setting avatar
     useEffect(() => {
         const getImage = async () => {
             try {
