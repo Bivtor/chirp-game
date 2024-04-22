@@ -40,11 +40,12 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                                 onChange={handleChange}
                             >
                                 <option value="blue">Blue Bird</option>
-                                <option value="red">Red Bird</option>
                                 <option value="green">Green Bird</option>
+                                <option value="light-orange">Light Orange Bird</option>
+                                <option value="orange">Orange Bird</option>
+                                <option value="red">Red Bird</option>
+                                <option value="teal">Teal Bird</option>
                                 <option value="yellow">Yellow Bird</option>
-                                <option value="purple">Purple Bird</option>
-                                <option value="lightred">Light-Red Bird</option>
                             </Field>
 
                             <label htmlFor="interests">Interests:</label>

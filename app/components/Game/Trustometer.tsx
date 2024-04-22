@@ -1,14 +1,14 @@
 import { ScoreInterace } from '@/app/page'
 import React from 'react'
 
-const Trustometer: React.FC<{ score: ScoreInterace }> = ({ score }) => {
+const Trustometer: React.FC<{ score: ScoreInterace, startButtonHandler: () => void }> = ({ score, startButtonHandler }) => {
     return (
-        <div className='flex flex-col items-center justify-start gap-4 py-5 text-[color:var(--theme-text)] h-screen'>
+        <div className='font-montserrat flex flex-col items-center justify-start gap-4 py-5 text-[color:var(--theme-text)] h-screen'>
             <h1>
                 Trustometer
             </h1>
 
-            <h2 className='font-bold text-red-600'>
+            <h2 className='font-bold text-chirp-c'>
                 {score.score}
             </h2>
 
@@ -16,13 +16,11 @@ const Trustometer: React.FC<{ score: ScoreInterace }> = ({ score }) => {
                 Here you can find your score
             </h3>
 
-            <h3 className='text-center	'>
-                Add
+            <h3 onClick={startButtonHandler} className='hover:text-chirp-p hover:cursor-pointer'>
+                Start
             </h3>
 
-            <h3 className='text-center	'>
-                Look at your notifications panel to begin!
-            </h3>
+
 
         </div>
     )

@@ -66,7 +66,7 @@ export default function Home() {
 
   const [gameStarted, setGameStarted] = useState(false); // game start form
   const [showNewPostForm, setShowNewPostForm] = useState(false) // new post form
-  const initialValues: PrimaryUserInterface = { userName: '', avatar: 'blue', interests: 'fashion', bio: '', following: new Set(), follow_requests: new Set(), score: { interest: '', notifications: 0, score: 100, stage: 0 }, posts: [] };
+  const initialValues: PrimaryUserInterface = { userName: '', avatar: 'blue', interests: 'fashion', bio: '', following: new Set(), follow_requests: new Set(), score: { interest: '', notifications: 0, score: 100, stage: -1 }, posts: [] };
   const [user, setUser] = useState<PrimaryUserInterface>(initialValues)
   const initialNewPostValues: NewPostValues = { message: '', username: user.userName }
   const [feed, setFeed] = useState<PostType[]>([]) // all post data to display
@@ -75,35 +75,7 @@ export default function Home() {
   const [middlePanelContent, setMiddlePanelContent] = useState('feed')
 
   useEffect(() => {
-    const fetchStartingAccounts = async (s: number) => {
-      const usersCollection = collection(db, 'users') // users collection ref
 
-      const initialQuery = query(usersCollection,
-        where('stage', '==', s),
-        where('interest', '==', user.score.interest)
-      );
-
-      const querySnapshot = await getDocs(initialQuery);
-      await Promise.all(querySnapshot.docs.map((doc) => {
-        const data = doc.data()
-        const fr: GeneralUserInterface = {
-          points: data.points,
-          userName: data.name,
-          avatar: data.avatar,
-          bio: data.bio,
-          interests: data.interest,
-          posts: []
-        }
-        // TODO fix this because we are generalizing this function
-        // Clear is ok because this should only contain the one request associated with the first bird option
-        // TODO change this to myProfile 
-        user.follow_requests.clear()
-        user.follow_requests.add(fr)
-      }))
-    }
-
-    // fetchStartingPosts();
-    fetchStartingAccounts(user.score.stage);
 
   }, [db, user.follow_requests, user.score.score]);
 
@@ -178,6 +150,53 @@ export default function Home() {
 
   }
 
+  function startButtonHandler() {
+    const u = user;
+    u.score.stage = u.score.stage + 1
+    setUser(u)
+    user.score.score = user.score.score + 1;
+    console.log("new stage: ", user.score.stage)
+  }
+
+  useEffect(
+    () => {
+      // get new follow requests when stage is updated
+      const fetchAccounts = async (s: number) => {
+        console.log('getting frs for stage: ', s)
+        const usersCollection = collection(db, 'users') // users collection ref
+
+        const initialQuery = query(usersCollection,
+          where('stage', '==', s),
+          where('interest', '==', user.score.interest)
+        );
+
+        const querySnapshot = await getDocs(initialQuery);
+        const u = user;
+        await Promise.all(querySnapshot.docs.map((doc) => {
+
+          const data = doc.data()
+          const fr: GeneralUserInterface = {
+            points: data.points,
+            userName: data.name,
+            avatar: data.avatar,
+            bio: data.bio,
+            interests: data.interest,
+            posts: []
+          }
+
+          // user.follow_requests.clear()
+          u.follow_requests.add(fr)
+        }))
+        setUser(u)
+        console.log('got FRs: ', u.follow_requests)
+      }
+      fetchAccounts(user.score.stage);
+
+
+    },
+    [user]
+  )
+
   const gameLogicHandler = (result: GeneralUserInterface) => {
     // // Handle score change & add to user followers
     // if (result.accepted_request) {
@@ -202,21 +221,22 @@ export default function Home() {
     <main className="text-[color:var(--theme-text)] h-screen">
       {gameStarted &&
         <div className="flex flex-row justify-between w-full text-[color:var(--theme-text)] w-full h-5/6">
-          {showNewPostForm && <div>
-            <NewPostForm initialValues={initialNewPostValues} incomingSubmit={handleNewPostRequest} backButtonHandler={showNewPostHandler} userValues={user} />
 
+          {showNewPostForm && <div className="z-40">
+            <NewPostForm initialValues={initialNewPostValues} incomingSubmit={handleNewPostRequest} backButtonHandler={showNewPostHandler} userValues={user} />
           </div>}
-          <div className="flex-initial  min-w-52 border border-grey-400">
+
+          <div className="flex-initial min-w-52 border border-[var(--theme-accent)]">
             <NavOptions NewPostClickHandler={showNewPostHandler} handleChangeCenterPanelClick={middlePanelDisplayHandler} />
           </div>
-          <div className="h-full w-full">
+          <div className="h-full w-full border border-[var(--theme-accent)]">
             {middlePanelContent == 'feed' && <Feed posts={feed} />}
             {middlePanelContent == 'notifications' && <Notifications handleAcceptDenyClick={gameLogicHandler} user={user} handleProfileClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'profile' && <GeneralProfilePage UserObject={shownProfile!} />}
             {middlePanelContent == 'myprofile' && <MyProfilePage UserObject={user} />}
           </div>
-          <div className="flex w-2/4 border border-400-purple flex flex-row justify-center">
-            <Trustometer score={user.score} />
+          <div className="flex w-2/4 border border-[var(--theme-accent)] flex flex-row justify-center">
+            <Trustometer score={user.score} startButtonHandler={startButtonHandler} />
           </div>
         </div>}
 

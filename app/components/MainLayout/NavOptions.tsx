@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import styles from '@/app/components/MainLayout/menu.module.css'
 import React from 'react'
 
 import Profile from '@/public/assets/icons/profile.svg'
@@ -29,18 +28,18 @@ const NavOptions: React.FC<{ NewPostClickHandler: () => void, handleChangeCenter
     }
 
     return (
-        <div className="flex flex-column justify-center w-full text-[color:var(--theme-text)] ">
+        <div className="flex flex-column justify-center w-full text-[color:var(--theme-text)] font-montserrat">
             <ul className="flex flex-col  gap-y-4 py-5">
-                <li className="flex flex-row jusitfy-content align-items hover:text-[color:var(--theme-hover)] hover:cursor-pointer" onClick={handleChangeCenterPanelToHomeClick}>
+                <li className="flex flex-row jusitfy-content align-items hover:text-chirp-c hover:cursor-pointer " onClick={handleChangeCenterPanelToHomeClick}>
                     <div className="flex flex-row justify-center gap-x-3 items-center ">
-                        <div className={styles['menu-icon']}>
+                        <div >
                             <Image src={Home} width={30} alt="Home Icon">
                             </Image>
                         </div>
                         Home
                     </div>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items hover:text-[color:var(--theme-hover)] hover:cursor-pointer" onClick={handleChangeCenterPanelToNotificationsClick}>
+                <li className="flex flex-row jusitfy-content align-items hover:text-chirp-h hover:cursor-pointer" onClick={handleChangeCenterPanelToNotificationsClick}>
                     <div className="flex flex-row justify-center gap-x-3 items-center ">
                         <div className="hover:text-[color:var(--theme-hover)]">
                             <Image src={Notification} width={30} alt="Notifications Icon">
@@ -49,7 +48,7 @@ const NavOptions: React.FC<{ NewPostClickHandler: () => void, handleChangeCenter
                         Follow Requests
                     </div>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items  hover:text-[color:var(--theme-hover)] hover:cursor-pointer" onClick={handleChangeCenterPanelToMyProfileClick}>
+                <li className="flex flex-row jusitfy-content align-items  hover:text-chirp-i hover:cursor-pointer" onClick={handleChangeCenterPanelToMyProfileClick}>
                     <div className="flex flex-row justify-center gap-x-3 items-center ">
                         <div>
                             <Image src={Profile} width={30} alt="My Profile Icon">
@@ -58,7 +57,7 @@ const NavOptions: React.FC<{ NewPostClickHandler: () => void, handleChangeCenter
                         My Profile
                     </div>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items  hover:text-[color:var(--theme-hover)] hover:cursor-pointer" onClick={handleNewPostClick}>
+                <li className="flex flex-row jusitfy-content align-items  hover:text-chirp-r hover:cursor-pointer" onClick={handleNewPostClick}>
                     <div className="flex flex-row justify-center gap-x-3 items-center " >
                         <div className="">
                             <Image src={NewPost} width={30} alt="Create New Post Icon">

@@ -30,11 +30,11 @@ const ShowNewPostForm: React.FC<{ initialValues: NewPostValues, incomingSubmit: 
     }, [userValues.avatar]);
 
     return (
-        <div className='fixed inset-x-1/4 flex items-center justify-center z-50 bg-white border border-[var(--theme-accent)] text-[var(--theme-text)] w-1/2 h-1/2 lg:rounded'>
-            <div className="flex flex-col w-full h-full  text-[color:var(--theme-text)] justify-center">
+        <div className='fixed inset-x-1/4 flex items-center justify-center z-50 bg-[var(--theme-main)] border border-[var(--theme-accent)] text-[var(--theme-text)] w-1/2 h-1/2 lg:rounded font-montserrat'>
+            <div className="flex flex-col w-full h-full text-[color:var(--theme-text)] justify-center">
                 <div className="flex flex-row justify-between items-center py-5 px-10">
                     {userValues.userName}&apos;s New Post
-                    {avatarUrl && <Image src={avatarUrl} alt='bird image' width={50} />}
+                    {avatarUrl && (<Image src={avatarUrl} alt='bird image' width={120} />)}
                 </div>
                 <div className="w-full h-full">
                     <Formik

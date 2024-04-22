@@ -2,6 +2,9 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import ChirpLogo from "./logo";
+import Chirp from '@/public/assets/icons/chirp-logo.svg'
 // import Menu from "../Menu/Menu";
 
 export default function Header() {
@@ -46,22 +49,20 @@ export default function Header() {
 
     // border-3 border-rose-300
     return (
-        <header className="w-full py-8  text-[color:var(--theme-text)] ">
+        <header className="w-full text-[color:var(--theme-text)] ">
             <div className="flex justify-between items-center">
                 <Link href='/'>
-                    <div className="flex flex-row space-x-10">
-
-                        <div className="relative">
-                            <h1
-                                className="text-3xl font-bold hover:text-[color:var(--theme-hover)] duration-[time:var(--transition-time)] hover:cursor-pointer"
-                            >
-                                Chirp
-                            </h1>
-                        </div>
-
+                    <div >
+                        <ChirpLogo />
                     </div>
                 </Link>
-                <div></div>
+                <div >
+                    <Link href='/'>
+                        <Image src={Chirp} alt="Chirp Logo" width={150}>
+
+                        </Image>
+                    </Link>
+                </div>
             </div>
         </header>
     )

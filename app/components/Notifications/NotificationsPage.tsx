@@ -4,7 +4,7 @@ import Notification from './Notification'
 
 const Notifications: React.FC<{ handleAcceptDenyClick: (flwrqst: GeneralUserInterface) => void, user: PrimaryUserInterface, handleProfileClick: (show: string, ui?: GeneralUserInterface) => void }> = ({ handleAcceptDenyClick, user, handleProfileClick }) => {
     return (
-        <div className='flex flex-col justify-center p-4 gap-3'>
+        <div className='flex flex-col justify-center p-4 gap-3 font-montserrat'>
             <h1 className='text-center text-lg'>
                 Notifications
             </h1>

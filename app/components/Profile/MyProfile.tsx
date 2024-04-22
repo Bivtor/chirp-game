@@ -26,12 +26,12 @@ const MyProfilePage: React.FC<{ UserObject: PrimaryUserInterface }> = ({ UserObj
     }, [UserObject.avatar])
 
     return (
-        <div className='flex flex-col justify-center items-center pt-8 px-6 gap-6 w-full h-full'>
+        <div className='flex flex-col justify-center items-center pt-8 px-6 gap-3 w-full h-full font-montserrat'>
             <h1 className='text-xl'>
                 {UserObject.userName}&apos;s Profile
             </h1>
             <div className=''>
-                <Image src={avatarUrl} alt='Profile Icon' width={100} />
+                <Image src={avatarUrl} alt='Profile Icon' width={200} />
             </div>
             <div className='text-lg'>
                 {UserObject.bio}
