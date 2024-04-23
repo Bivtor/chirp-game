@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ChirpLogo from "./logo";
-import Chirp from '@/public/assets/icons/chirp-logo.svg'
+import Chirp from '@/public/assets/icons/icon.svg'
 // import Menu from "../Menu/Menu";
 
 export default function Header() {
