@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import moment from 'moment';
 import { PostType } from '@/app/page';
+import { GeneralUserInterface } from '@/app/page';
 
-
-const Post: React.FC<{ post: PostType }> = ({ post }) => {
+// handleProfileClick: (show: string, ui?: GeneralUserInterface) => void // , handleProfileClick
+const Post: React.FC<{ post: PostType, }> = ({ post }) => {
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
     const toTimeAgo = () => {
@@ -29,10 +30,14 @@ const Post: React.FC<{ post: PostType }> = ({ post }) => {
         getImage();
     }, [post.avatar]);
 
+    // const handleProfileClickLocal = () => {
+    //     handleProfileClick('profile',)
+
+    // }
     return (
         <div className='pb-1 pt-4 px-4 flex flex-col justify-start align-start text-[color:var(--theme-text)] border border-[var(--theme-accent)] md:rounded font-montserrat'>
             <div className='flex flex-row gap-2'>
-                <div>
+                <div >
                     {avatarUrl && <Image src={avatarUrl} alt='bird image' width={50} />}
                 </div>
                 <div className='flex flex-col '>

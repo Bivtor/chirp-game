@@ -8,7 +8,7 @@ import { PrimaryUserInterface } from '@/app/page'
 
 const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSubmit: (data: PrimaryUserInterface) => void; }> = ({ incomingSubmit, initialValues }) => {
     return (
-        <div className="flex flex-col w-full h-full  text-[color:var(--theme-text)] border border-black rounded-md pb-6">
+        <div className="flex flex-col w-full h-full text-[color:var(--theme-text)] border border-black rounded-md pb-6">
             <div className="flex flex-row justify-center align-items py-5">
                 <span>
                     Create Your Character!
@@ -25,19 +25,20 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                     {({ values, handleChange }) => (
                         <Form className='flex flex-col justify-center align-items py-3 gap-2 px-10'>
                             <label htmlFor="userName">User Name:</label>
-                            <Field className='bg-[var(--theme-accent)]' id="userName" name="userName" />
+                            <Field className='bg-[var(--theme-accent)] hover:text-chirp-c' id="userName" name="userName" />
 
                             <label htmlFor="bio">Bio:</label>
-                            <Field className='bg-[var(--theme-accent)]' id="bio" name="bio" />
+                            <Field className='bg-[var(--theme-accent)] hover:text-chirp-h' id="bio" name="bio" />
 
                             <label htmlFor="avatar">Avatar:</label>
                             <Field
                                 as='select'
-                                className='bg-[var(--theme-accent)] '
+                                className='bg-[var(--theme-accent)] hover:text-chirp-i'
                                 id="avatar"
                                 name="avatar"
                                 value={values.avatar}
                                 onChange={handleChange}
+
                             >
                                 <option value="blue">Blue Bird</option>
                                 <option value="green">Green Bird</option>
@@ -51,7 +52,7 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                             <label htmlFor="interests">Interests:</label>
                             <Field
                                 as='select'
-                                className='bg-[var(--theme-accent)]'
+                                className='bg-[var(--theme-accent)] hover:text-chirp-r'
                                 id="interests"
                                 name="interests"
                                 value={values.interest}
@@ -62,7 +63,7 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                                 <option value="video games">Video Games</option>
                             </Field>
                             <div className='flex justify-center align-items '>
-                                <button className='hover:text-[color:var(--theme-hover)]' type='submit'>Start Game!</button>
+                                <button className='hover:text-chirp-p' type='submit'>Start Game!</button>
                             </div>
                         </Form>
                     )}

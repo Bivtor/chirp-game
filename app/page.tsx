@@ -137,18 +137,17 @@ export default function Home() {
       setShownProfile(profile)
     }
 
-    setMiddlePanelContent(show) // set the home page content to the appropriate page
-
+    setMiddlePanelContent(show) // set the home page content to the appropriate page 
   }
 
   // states of trust tab
   const [showTrustButton, setShowTrustButton] = useState(true)
-  const [trustButtonText, showTrustButtonText] = useState('Start')
+  const [trustButtonText, setTrustButtonText] = useState('Start')
 
   // handle game state from Trustworthiness tab
   function startButtonHandler() {
     const u = { ...user.score }; // shallow copy of obj 
-    u.stage = 1;
+    u.stage = u.stage + 1;
     setUser((oldUser) => ({ ...oldUser, score: u })) // update state to re-render new follow requests
     setShowTrustButton(false) // hide button
   }
@@ -203,6 +202,14 @@ export default function Home() {
       // add to followers 
       following.add(profile)
     }
+
+    // if on the last follow request
+    if (user.follow_requests.size == 1) {
+      // re-add next level button
+      setTrustButtonText('See More Profiles')
+      setShowTrustButton(true)
+    }
+
     // TODO Update state of next button if follow requests is empty YESS
 
     // update user
@@ -252,10 +259,10 @@ export default function Home() {
           </div>}
 
           <div className="flex-initial min-w-52 border border-[var(--theme-accent)]">
-            <NavOptions NewPostClickHandler={showNewPostHandler} handleChangeCenterPanelClick={middlePanelDisplayHandler} />
+            <NavOptions NewPostClickHandler={showNewPostHandler} handleChangeCenterPanelClick={middlePanelDisplayHandler} user={user} />
           </div>
           <div className="h-full w-full border border-[var(--theme-accent)]">
-            {middlePanelContent == 'feed' && <Feed posts={user.feed} />}
+            {middlePanelContent == 'feed' && <Feed posts={user.feed} handleProfileClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'notifications' && <Notifications handleAcceptDenyClick={gameLogicHandler} user={user} handleProfileClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'profile' && <GeneralProfilePage UserObject={shownProfile!} />}
             {middlePanelContent == 'myprofile' && <MyProfilePage UserObject={user} />}
@@ -265,7 +272,7 @@ export default function Home() {
           </div>
         </div>}
 
-      {!gameStarted && <div className="absolute top-1/4 right-auto w-1/2 h-1/2">
+      {!gameStarted && <div className="absolute top-1/4 right-1/4 w-1/2 h-1/2">
         <StartQuestions incomingSubmit={handleStartClick} initialValues={initialValues} />
       </div>}
     </main>

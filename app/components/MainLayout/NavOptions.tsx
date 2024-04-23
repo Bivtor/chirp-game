@@ -7,10 +7,10 @@ import Notification from '@/public/assets/icons/notification.svg'
 import Home from '@/public/assets/icons/home.svg'
 import NewPost from '@/public/assets/icons/new-post.svg'
 
-import { GeneralUserInterface } from "@/app/page"
+import { GeneralUserInterface, PrimaryUserInterface } from "@/app/page"
 
 
-const NavOptions: React.FC<{ NewPostClickHandler: () => void, handleChangeCenterPanelClick: (show: string, p?: GeneralUserInterface) => void }> = ({ NewPostClickHandler, handleChangeCenterPanelClick }) => {
+const NavOptions: React.FC<{ user: PrimaryUserInterface, NewPostClickHandler: () => void, handleChangeCenterPanelClick: (show: string, p?: GeneralUserInterface) => void }> = ({ NewPostClickHandler, handleChangeCenterPanelClick, user }) => {
     const handleNewPostClick = () => {
         NewPostClickHandler()
     }
@@ -39,13 +39,18 @@ const NavOptions: React.FC<{ NewPostClickHandler: () => void, handleChangeCenter
                         Home
                     </div>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items hover:text-chirp-h hover:cursor-pointer" onClick={handleChangeCenterPanelToNotificationsClick}>
+                <li className="flex flex-row jusitfy-content align-items hover:text-chirp-h hover:cursor-pointer " onClick={handleChangeCenterPanelToNotificationsClick}>
                     <div className="flex flex-row justify-center gap-x-3 items-center ">
                         <div className="hover:text-[color:var(--theme-hover)]">
                             <Image src={Notification} width={30} alt="Notifications Icon">
                             </Image>
                         </div>
                         Follow Requests
+                        {user.follow_requests.size > 0 && (
+                            <p className=" font-sans-400 text-chirp-c relative top-[-5px] right-[8px]">
+                                {user.follow_requests.size}
+                            </p>
+                        )}
                     </div>
                 </li>
                 <li className="flex flex-row jusitfy-content align-items  hover:text-chirp-i hover:cursor-pointer" onClick={handleChangeCenterPanelToMyProfileClick}>
