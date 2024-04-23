@@ -30,11 +30,21 @@ const MyProfilePage: React.FC<{ UserObject: PrimaryUserInterface }> = ({ UserObj
             <h1 className='text-xl'>
                 {UserObject.userName}&apos;s Profile
             </h1>
-            <div className=''>
+            <div>
                 <Image src={avatarUrl} alt='Profile Icon' width={200} />
             </div>
             <div className='text-lg'>
                 {UserObject.bio}
+            </div>
+            <div className='flex flex-row gap-5'>
+                <span>
+                    Following: {UserObject.following.size}
+                </span>
+                <span>
+                    Followers: {UserObject.following.size}
+                </span>
+
+
             </div>
 
             <div className='text-lg'>

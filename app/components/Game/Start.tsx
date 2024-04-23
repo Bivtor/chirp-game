@@ -54,7 +54,7 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                                 className='bg-[var(--theme-accent)]'
                                 id="interests"
                                 name="interests"
-                                value={values.interests}
+                                value={values.interest}
                                 onChange={handleChange}
                             >
                                 <option value="sports">Sports</option>

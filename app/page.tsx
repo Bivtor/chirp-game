@@ -5,9 +5,9 @@ import { initializeApp } from "firebase/app";
 
 import StartQuestions from "@/app/components/Game/Start";
 import NavOptions from "@/app/components/MainLayout/NavOptions"
+
 import NewPostForm, { NewPostValues } from "@/app/components/Game/NewPostForm";
 import Trustometer from "@/app/components/Game/Trustometer";
-
 import Feed from "@/app/components/Game/Feed"
 import Notifications from "@/app/components/Notifications/NotificationsPage";
 import MyProfilePage from "@/app/components/Profile/MyProfile";
@@ -15,7 +15,6 @@ import GeneralProfilePage from "@/app/components/Profile/GeneralProfile";
 
 export interface ScoreInterace {
   score: number;
-  interest: string;
   stage: number;
   notifications: number;
 }
@@ -23,12 +22,13 @@ export interface ScoreInterace {
 export interface PrimaryUserInterface {
   userName: string;
   avatar: string;
-  interests: string;
+  interest: string;
   bio: string;
   following: Set<GeneralUserInterface>;
   follow_requests: Set<GeneralUserInterface>;
   score: ScoreInterace;
   posts: PostType[]
+  feed: PostType[]
 }
 
 export interface GeneralUserInterface {
@@ -66,25 +66,18 @@ export default function Home() {
 
   const [gameStarted, setGameStarted] = useState(false); // game start form
   const [showNewPostForm, setShowNewPostForm] = useState(false) // new post form
-  const initialValues: PrimaryUserInterface = { userName: '', avatar: 'blue', interests: 'fashion', bio: '', following: new Set(), follow_requests: new Set(), score: { interest: '', notifications: 0, score: 100, stage: -1 }, posts: [] };
+  const initialValues: PrimaryUserInterface = { userName: '', avatar: 'blue', interest: 'fashion', bio: '', feed: [], following: new Set(), follow_requests: new Set(), score: { notifications: 0, score: 100, stage: -1 }, posts: [] };
   const [user, setUser] = useState<PrimaryUserInterface>(initialValues)
   const initialNewPostValues: NewPostValues = { message: '', username: user.userName }
-  const [feed, setFeed] = useState<PostType[]>([]) // all post data to display
   const [numPosts, setNumPosts] = useState(0) // used for Key
   const [shownProfile, setShownProfile] = useState<GeneralUserInterface>()
   const [middlePanelContent, setMiddlePanelContent] = useState('feed')
-
-  useEffect(() => {
-
-
-  }, [db, user.follow_requests, user.score.score]);
 
 
   const handleStartClick = (values: PrimaryUserInterface) => {
     setGameStarted(true)
     setUser(values)
   };
-
 
   const showNewPostHandler = () => {
     setShowNewPostForm(!showNewPostForm)
@@ -100,10 +93,10 @@ export default function Home() {
     }
     setNumPosts(numPosts + 1) // add to key counter
     setShowNewPostForm(!showNewPostForm) // hide form
-    // TODO
     const newUser = user
     newUser.posts.push(newPost)
     setUser(newUser)
+    setUser((oldUser) => ({ ...oldUser })) //TODO fix this 
   }
 
   const getBotPosts = async (profile: GeneralUserInterface) => {
@@ -118,8 +111,7 @@ export default function Home() {
     const userDocRef = querySnapshot.docs[0].ref;
     const postsCollection = collection(userDocRef, 'posts'); // posts subcollection ref
 
-    // Now you can query or perform operations on the "posts" subcollection
-    // For example:
+    // Now we can query or perform operations on the "posts" subcollection
     const postsQuerySnapshot = await getDocs(postsCollection);
     await Promise.all(postsQuerySnapshot.docs.map((doc2) => {
       const data = doc2.data()
@@ -133,7 +125,6 @@ export default function Home() {
 
       setNumPosts(numPosts + 1)
       postarray.push(post_obj)
-      console.log(post_obj)
     }))
     return postarray
   }
@@ -150,30 +141,35 @@ export default function Home() {
 
   }
 
+  // states of trust tab
+  const [showTrustButton, setShowTrustButton] = useState(true)
+  const [trustButtonText, showTrustButtonText] = useState('Start')
+
+  // handle game state from Trustworthiness tab
   function startButtonHandler() {
-    const u = user;
-    u.score.stage = u.score.stage + 1
-    setUser(u)
-    user.score.score = user.score.score + 1;
-    console.log("new stage: ", user.score.stage)
+    const u = { ...user.score }; // shallow copy of obj 
+    u.stage = 1;
+    setUser((oldUser) => ({ ...oldUser, score: u })) // update state to re-render new follow requests
+    setShowTrustButton(false) // hide button
   }
 
+
+  // fetch users of current stage when stage is updated
   useEffect(
     () => {
-      // get new follow requests when stage is updated
+      // get new follow requests when stage(user) is updated
+
       const fetchAccounts = async (s: number) => {
-        console.log('getting frs for stage: ', s)
         const usersCollection = collection(db, 'users') // users collection ref
 
         const initialQuery = query(usersCollection,
           where('stage', '==', s),
-          where('interest', '==', user.score.interest)
+          where('interest', '==', user.interest)
         );
 
         const querySnapshot = await getDocs(initialQuery);
-        const u = user;
+        const u = { ...user };
         await Promise.all(querySnapshot.docs.map((doc) => {
-
           const data = doc.data()
           const fr: GeneralUserInterface = {
             points: data.points,
@@ -184,38 +180,67 @@ export default function Home() {
             posts: []
           }
 
-          // user.follow_requests.clear()
           u.follow_requests.add(fr)
         }))
         setUser(u)
-        console.log('got FRs: ', u.follow_requests)
       }
+
       fetchAccounts(user.score.stage);
-
-
     },
-    [user]
+    [user.score]
   )
 
-  const gameLogicHandler = (result: GeneralUserInterface) => {
-    // // Handle score change & add to user followers
-    // if (result.accepted_request) {
-    //   user.following.add(result.user)
-    // }
 
-    // // move to next game stage
-    // // increment points appropriately
-    // const newScore = score;
-    // newScore.score = newScore.score + result.user.points
-    // newScore.stage = newScore.stage + 1
-    // setScore(newScore)
+  const gameLogicHandler = (profile: GeneralUserInterface, decision: boolean) => {
+    const following = new Set(user.following)
+    const follow_requests = new Set(user.follow_requests)
 
-    // user.follow_requests.delete(result)
-    // setShowNewPostForm(!showNewPostForm)
-    // add the new post in another handler
+    // delete follow request
+    follow_requests.delete(profile)
 
-    // move to next stage
+    // If accepted request
+    if (decision) {
+      // add to followers 
+      following.add(profile)
+    }
+    // TODO Update state of next button if follow requests is empty YESS
+
+    // update user
+    setUser((oldUser) => ({ ...oldUser, following: following, follow_requests: follow_requests }))
   }
+
+  // Update feed when user.following is changed
+  useEffect(() => {
+
+    const fetchPosts = async () => {
+      // create new feed object
+      const feed2: PostType[] = []
+
+      // Array to store promises
+      const promises: Promise<PostType[]>[] = [];
+
+      // Iterate through each item in 'user.following'
+      user.following.forEach((item) => {
+        // Push the promise returned by getBotPosts to the 'promises' array
+        promises.push(getBotPosts(item));
+      });
+
+      // Wait for all promises to resolve
+      const resolvedPosts = await Promise.all(promises);
+
+      // Process the resolved posts
+      resolvedPosts.forEach((bot) => {
+        bot.forEach((post) => {
+          console.log(post)
+          feed2.push(post)
+        })
+      });
+      setUser((oldUser) => ({ ...oldUser, feed: feed2 }))
+    };
+
+    fetchPosts()
+  }, [user.following])
+
 
   return (
     <main className="text-[color:var(--theme-text)] h-screen">
@@ -230,13 +255,13 @@ export default function Home() {
             <NavOptions NewPostClickHandler={showNewPostHandler} handleChangeCenterPanelClick={middlePanelDisplayHandler} />
           </div>
           <div className="h-full w-full border border-[var(--theme-accent)]">
-            {middlePanelContent == 'feed' && <Feed posts={feed} />}
+            {middlePanelContent == 'feed' && <Feed posts={user.feed} />}
             {middlePanelContent == 'notifications' && <Notifications handleAcceptDenyClick={gameLogicHandler} user={user} handleProfileClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'profile' && <GeneralProfilePage UserObject={shownProfile!} />}
             {middlePanelContent == 'myprofile' && <MyProfilePage UserObject={user} />}
           </div>
           <div className="flex w-2/4 border border-[var(--theme-accent)] flex flex-row justify-center">
-            <Trustometer score={user.score} startButtonHandler={startButtonHandler} />
+            <Trustometer score={user.score} startButtonHandler={startButtonHandler} showButton={showTrustButton} buttonText={trustButtonText} />
           </div>
         </div>}
 

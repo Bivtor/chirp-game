@@ -2,7 +2,7 @@ import { GeneralUserInterface } from '@/app/page'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-const Notification: React.FC<{ user_from_requests: GeneralUserInterface, handleProfileClick: (show: string, profile?: GeneralUserInterface) => void, handleAcceptDenyClick: (result: GeneralUserInterface) => void }> = ({ user_from_requests, handleProfileClick, handleAcceptDenyClick }) => {
+const Notification: React.FC<{ user_from_requests: GeneralUserInterface, handleProfileClick: (show: string, profile?: GeneralUserInterface) => void, handleAcceptDenyClick: (folowee: GeneralUserInterface, decision: boolean) => void }> = ({ user_from_requests, handleProfileClick, handleAcceptDenyClick }) => {
     const [avatarUrl, setAvatarUrl] = useState<string>('');
 
     useEffect(() => {
@@ -21,18 +21,19 @@ const Notification: React.FC<{ user_from_requests: GeneralUserInterface, handleP
         getImage();
     }, [user_from_requests.avatar])
 
+    // open users profile
     const handleProfileClickLocal = () => {
         handleProfileClick('profile', user_from_requests)
     }
 
+    // accept follow request
     const handleAcceptLocal = () => {
-        // user_from_requests.accepted_request = true
-        handleAcceptDenyClick(user_from_requests)
+        handleAcceptDenyClick(user_from_requests, true)
     }
 
+    // deny follow request
     const handleDenyLocal = () => {
-        // user_from_requests.accepted_request = false
-        handleAcceptDenyClick(user_from_requests)
+        handleAcceptDenyClick(user_from_requests, false)
     }
 
     return (

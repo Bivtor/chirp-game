@@ -26,7 +26,7 @@ const GeneralProfilePage: React.FC<{ UserObject: GeneralUserInterface }> = ({ Us
     }, [UserObject.avatar])
 
     return (
-        <div className='flex flex-col justify-center items-center pt-8 px-6 gap-6 w-full h-full'>
+        <div className='font-montserrat flex flex-col justify-center items-center pt-8 px-6 gap-6 w-full h-full '>
             <h1 className='text-xl'>
                 {UserObject.userName}&apos;s Profile
             </h1>

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Timestamp } from 'firebase/firestore';
 import moment from 'moment';
 import { PostType } from '@/app/page';
-
 
 
 const Post: React.FC<{ post: PostType }> = ({ post }) => {
@@ -32,7 +30,7 @@ const Post: React.FC<{ post: PostType }> = ({ post }) => {
     }, [post.avatar]);
 
     return (
-        <div className='pb-1 pt-4 px-4 flex flex-col justify-start align-start text-[color:var(--theme-text)] border border-grey-400 md:rounded'>
+        <div className='pb-1 pt-4 px-4 flex flex-col justify-start align-start text-[color:var(--theme-text)] border border-[var(--theme-accent)] md:rounded font-montserrat'>
             <div className='flex flex-row gap-2'>
                 <div>
                     {avatarUrl && <Image src={avatarUrl} alt='bird image' width={50} />}

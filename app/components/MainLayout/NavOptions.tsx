@@ -20,7 +20,7 @@ const NavOptions: React.FC<{ NewPostClickHandler: () => void, handleChangeCenter
     }
 
     const handleChangeCenterPanelToHomeClick = () => {
-        handleChangeCenterPanelClick('home')
+        handleChangeCenterPanelClick('feed')
     }
 
     const handleChangeCenterPanelToMyProfileClick = () => {

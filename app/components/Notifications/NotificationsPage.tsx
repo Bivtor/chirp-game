@@ -2,7 +2,7 @@ import { GeneralUserInterface, PrimaryUserInterface } from '@/app/page'
 import React from 'react'
 import Notification from './Notification'
 
-const Notifications: React.FC<{ handleAcceptDenyClick: (flwrqst: GeneralUserInterface) => void, user: PrimaryUserInterface, handleProfileClick: (show: string, ui?: GeneralUserInterface) => void }> = ({ handleAcceptDenyClick, user, handleProfileClick }) => {
+const Notifications: React.FC<{ handleAcceptDenyClick: (followee: GeneralUserInterface, decision: boolean) => void, user: PrimaryUserInterface, handleProfileClick: (show: string, ui?: GeneralUserInterface) => void }> = ({ handleAcceptDenyClick, user, handleProfileClick }) => {
     return (
         <div className='flex flex-col justify-center p-4 gap-3 font-montserrat'>
             <h1 className='text-center text-lg'>
