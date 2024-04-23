@@ -1,11 +1,9 @@
-import Link from "next/link"
 import Image from "next/image"
 import React from 'react'
 
 import Profile from '@/public/assets/icons/profile.svg'
 import Notification from '@/public/assets/icons/notification.svg'
 import Home from '@/public/assets/icons/home.svg'
-import NewPost from '@/public/assets/icons/new-post.svg'
 
 import { GeneralUserInterface, PrimaryUserInterface } from "@/app/page"
 
@@ -60,15 +58,6 @@ const NavOptions: React.FC<{ user: PrimaryUserInterface, NewPostClickHandler: ()
                             </Image>
                         </div>
                         My Profile
-                    </div>
-                </li>
-                <li className="flex flex-row jusitfy-content align-items  hover:text-chirp-r hover:cursor-pointer" onClick={handleNewPostClick}>
-                    <div className="flex flex-row justify-center gap-x-3 items-center " >
-                        <div className="">
-                            <Image src={NewPost} width={30} alt="Create New Post Icon">
-                            </Image>
-                        </div>
-                        Create Post
                     </div>
                 </li>
             </ul>

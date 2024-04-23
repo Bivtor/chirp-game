@@ -27,9 +27,6 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                             <label htmlFor="userName">User Name:</label>
                             <Field className='bg-[var(--theme-accent)] hover:text-chirp-c' id="userName" name="userName" />
 
-                            <label htmlFor="bio">Bio:</label>
-                            <Field className='bg-[var(--theme-accent)] hover:text-chirp-h' id="bio" name="bio" />
-
                             <label htmlFor="avatar">Avatar:</label>
                             <Field
                                 as='select'

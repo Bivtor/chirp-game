@@ -6,7 +6,6 @@ import { initializeApp } from "firebase/app";
 import StartQuestions from "@/app/components/Game/Start";
 import NavOptions from "@/app/components/MainLayout/NavOptions"
 
-import NewPostForm, { NewPostValues } from "@/app/components/Game/NewPostForm";
 import Trustometer from "@/app/components/Game/Trustometer";
 import Feed from "@/app/components/Game/Feed"
 import Notifications from "@/app/components/Notifications/NotificationsPage";
@@ -68,11 +67,9 @@ export default function Home() {
   const [showNewPostForm, setShowNewPostForm] = useState(false) // new post form
   const initialValues: PrimaryUserInterface = { userName: '', avatar: 'blue', interest: 'fashion', bio: '', feed: [], following: new Set(), follow_requests: new Set(), score: { notifications: 0, score: 100, stage: -1 }, posts: [] };
   const [user, setUser] = useState<PrimaryUserInterface>(initialValues)
-  const initialNewPostValues: NewPostValues = { message: '', username: user.userName }
   const [numPosts, setNumPosts] = useState(0) // used for Key
   const [shownProfile, setShownProfile] = useState<GeneralUserInterface>()
   const [middlePanelContent, setMiddlePanelContent] = useState('feed')
-
 
   const handleStartClick = (values: PrimaryUserInterface) => {
     setGameStarted(true)
@@ -81,22 +78,6 @@ export default function Home() {
 
   const showNewPostHandler = () => {
     setShowNewPostForm(!showNewPostForm)
-  }
-
-  const handleNewPostRequest = (values: NewPostValues) => {
-    const newPost: PostType = {
-      key: numPosts,
-      username: user.userName,
-      avatar: user.avatar,
-      message: values.message,
-      time: new Timestamp(new Date().getUTCSeconds(), 0),
-    }
-    setNumPosts(numPosts + 1) // add to key counter
-    setShowNewPostForm(!showNewPostForm) // hide form
-    const newUser = user
-    newUser.posts.push(newPost)
-    setUser(newUser)
-    setUser((oldUser) => ({ ...oldUser })) //TODO fix this 
   }
 
   const getBotPosts = async (profile: GeneralUserInterface) => {
@@ -253,11 +234,6 @@ export default function Home() {
     <main className="text-[color:var(--theme-text)] h-screen">
       {gameStarted &&
         <div className="flex flex-row justify-between w-full text-[color:var(--theme-text)] w-full h-5/6">
-
-          {showNewPostForm && <div className="z-40">
-            <NewPostForm initialValues={initialNewPostValues} incomingSubmit={handleNewPostRequest} backButtonHandler={showNewPostHandler} userValues={user} />
-          </div>}
-
           <div className="flex-initial min-w-52 border border-[var(--theme-accent)]">
             <NavOptions NewPostClickHandler={showNewPostHandler} handleChangeCenterPanelClick={middlePanelDisplayHandler} user={user} />
           </div>

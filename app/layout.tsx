@@ -9,7 +9,6 @@ const inter = Inter({ subsets: ["latin"] });
 const metadata: Metadata = {
   title: "Chirp Game",
   description: "Chirp Game Demo",
-
 };
 
 export default function RootLayout({
