@@ -91,12 +91,12 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                                         <option value="yellow">Yellow Bird</option>
                                     </Field>
 
-                                    <label htmlFor="interests">Theme</label>
+                                    <label htmlFor="interest">Theme</label>
                                     <Field
                                         as='select'
                                         className='bg-[var(--theme-accent)] text-chirp-i'
-                                        id="interests"
-                                        name="interests"
+                                        id="interest"
+                                        name="interest"
                                         value={values.interest}
                                         onChange={handleChange}
                                     >
