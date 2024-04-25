@@ -49,7 +49,7 @@ export default function Header() {
 
     // border-3 border-rose-300
     return (
-        <header className="w-full text-[color:var(--theme-text)] ">
+        <header className="w-full text-[color:var(--theme-text)] flex-initial grow-0">
             <div className="flex justify-between items-center">
                 <Link href='/'>
                     <div >

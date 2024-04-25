@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const metadata: Metadata = {
   title: "Chirp Game",
-  description: "Chirp Game Demo",
+  description: "Chirp Away!",
 };
 
 export default function RootLayout({
@@ -17,13 +17,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="px-24">
-      <body className={inter.className}>
+    <html lang="en" className="sm:px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 w-screen h-screen ">
+      <Head>
+        <link rel="stylesheet" type="text/css" href="loading-bar.css" />
+        <script type="text/javascript" src="loading-bar.js"></script>
+
+      </Head>
+      <body className="flex flex-col h-full w-full">
         <Header />
         {children}
       </body>
     </html>
   );
+
 }
 
 export { metadata };

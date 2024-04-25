@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import moment from 'moment';
 import { PostType } from '@/app/page';
 import { GeneralUserInterface } from '@/app/page';
 
-// handleProfileClick: (show: string, ui?: GeneralUserInterface) => void // , handleProfileClick
-const Post: React.FC<{ post: PostType, }> = ({ post }) => {
+
+const Post: React.FC<{ post: PostType, handleProfileClick: (show: string, ui?: GeneralUserInterface) => void }> = ({ post, handleProfileClick }) => {
     const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
-    const toTimeAgo = () => {
-        if (post.time) {
-            var storedDate = post.time.toDate();
-            return moment(storedDate).fromNow()
-        }
-        return moment(Date.now()).fromNow()
+    const getMessageTime = () => {
+        return `${post.order} days ago`
     }
-
 
     useEffect(() => {
         const getImage = async () => {
             try {
-                const imageModule = await import(`@/public/assets/icons/${post.avatar}-bird.svg`);
+                const imageModule = await import(`@/public/assets/icons/${post.user.avatar}-bird.svg`);
                 setAvatarUrl(imageModule.default);
             } catch (error) {
                 console.error('Error loading image:', error);
@@ -28,27 +22,30 @@ const Post: React.FC<{ post: PostType, }> = ({ post }) => {
         };
 
         getImage();
-    }, [post.avatar]);
+    }, [post.user.avatar]);
 
-    // const handleProfileClickLocal = () => {
-    //     handleProfileClick('profile',)
+    const handleLocalClick = () => {
+        handleProfileClick('profile', post.user)
 
-    // }
+    }
     return (
         <div className='pb-1 pt-4 px-4 flex flex-col justify-start align-start text-[color:var(--theme-text)] border border-[var(--theme-accent)] md:rounded font-montserrat'>
             <div className='flex flex-row gap-2'>
-                <div >
+                <div onClick={handleLocalClick} className='hover:cursor-pointer'>
                     {avatarUrl && <Image src={avatarUrl} alt='bird image' width={50} />}
                 </div>
                 <div className='flex flex-col '>
-                    <div className='font-normal'>
-                        &nbsp;{post.username} · {toTimeAgo()}
+                    <div className='font-normal '>
+                        <span onClick={handleLocalClick} className='text-chirp-i hover:cursor-pointer'>&nbsp;{post.user.userName}</span>
+                        <span> · </span>
+                        <span className='text-chirp-p'>{post.order} {' '} {post.order > 1 ? ' days ago' : ' day ago'}</span>
                     </div>
-                    <h5 className='font-semibold text-xs'>@{post.username}</h5>
+                    <h5 className='font-semibold text-xs text-chirp-r'>@{post.user.userName}</h5>
                 </div>
             </div>
-            <div className='pb-4 pl-14' >
-                {post.message}
+            <div className='pb-4 pl-14 text-chirp-i leading-relaxed	' >
+                <span>{post.message}</span>
+
             </div>
         </div>
     );

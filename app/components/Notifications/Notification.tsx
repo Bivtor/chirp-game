@@ -43,17 +43,17 @@ const Notification: React.FC<{ user_from_requests: GeneralUserInterface, handleP
                     <Image src={avatarUrl} width={50} alt='Profile Image'></Image>
                 </div>
                 <div className='flex flex-row gap-1'>
-                    <h2 className='font-semibold hover:cursor-pointer' onClick={handleProfileClickLocal}>
+                    <h2 className='text-chirp-r font-semibold hover:cursor-pointer' onClick={handleProfileClickLocal}>
                         {user_from_requests.userName}
                     </h2>
                     would like to follow you
                 </div>
             </div>
             <div className='flex flex-row gap-4'>
-                <div onClick={handleAcceptLocal} className='hover:cursor-pointer hover:text-[color:var(--theme-hover)]'>
+                <div onClick={handleAcceptLocal} className='hover:cursor-pointer hover:text-chirp-r'>
                     Accept
                 </div>
-                <div className='hover:cursor-pointer hover:text-[color:var(--theme-hover)]' onClick={handleDenyLocal}>
+                <div className='hover:cursor-pointer hover:text-chirp-c' onClick={handleDenyLocal}>
                     Deny
                 </div>
             </div>

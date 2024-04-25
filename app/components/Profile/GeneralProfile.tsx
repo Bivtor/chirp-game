@@ -3,17 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { GeneralUserInterface } from '../../page'
 import Image from 'next/image'
 import Post from '../Post/Post'
-import { PostType } from '@/app/page'
 
-const GeneralProfilePage: React.FC<{ UserObject: GeneralUserInterface }> = ({ UserObject }) => {
-    // const [userData, setUserData] = useState<UserInterface>({ avatar: '', bio: '', interests: '', userName: '' }) // new post form or not
+const GeneralProfilePage: React.FC<{ UserObject: GeneralUserInterface, handleBackClick: (show: string, profile?: GeneralUserInterface) => void }> = ({ UserObject, handleBackClick }) => {
     const [avatarUrl, setAvatarUrl] = useState<string>('');
 
     useEffect(() => {
-        // const uv: UserInterface = { avatar: avatar!, bio: bio!, userName: user!, interests: 'fashion' }
-        // setUserData(uv)
-
-        // Get Image
         const getImage = async () => {
             try {
                 const imageModule = await import(`@/public/assets/icons/${UserObject.avatar}-bird.svg`);
@@ -25,26 +19,33 @@ const GeneralProfilePage: React.FC<{ UserObject: GeneralUserInterface }> = ({ Us
         getImage();
     }, [UserObject.avatar])
 
+    const handleBackClickLocal = () => {
+        handleBackClick('notifications')
+    }
+
     return (
-        <div className='font-montserrat flex flex-col justify-center items-center pt-8 px-6 gap-6 w-full h-full '>
-            <h1 className='text-xl'>
+        <div className='font-montserrat flex flex-col justify-center items-center pt-8 px-6 gap-1'>
+            <div className='flex flex-row items-center justify-between px-4 w-full'>
+                <h2 className='hover:text-chirp-p hover:cursor-pointer' onClick={handleBackClickLocal}>
+                    Back
+                </h2>
+                <div />
+
+            </div>
+            <h1 className='text-xl text-chirp-i'>
                 {UserObject.userName}&apos;s Profile
             </h1>
             <div className=''>
                 <Image src={avatarUrl} alt='Profile Icon' width={100} />
             </div>
-            <div className='text-lg'>
+            <div className='text-lg text-chirp-r text-center'>
                 {UserObject.bio}
             </div>
 
-            <div className='text-lg'>
-                {UserObject.userName}&apos;s Posts:
-            </div>
-
             {UserObject.posts.length > 0 ? (
-                <div className='flex flex-col w-full gap-t-4 overflow-y-scroll h-full'>
+                <div className='flex flex-col w-full'>
                     {UserObject.posts.map((post) => (
-                        <Post post={post} key={post.key} />
+                        <Post post={post} key={post.key} handleProfileClick={handleBackClick} />
                     ))}
                 </div>
             ) : (

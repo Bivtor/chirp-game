@@ -1,16 +1,19 @@
 'use client'
 import { useEffect, useState } from "react";
-import { getFirestore, collection, addDoc, getDocs, Timestamp, query, where } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, Timestamp, query, where, setDoc, doc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 
-import StartQuestions from "@/app/components/Game/Start";
-import NavOptions from "@/app/components/MainLayout/NavOptions"
 
+import MidGame from "@/app/components/Game/MidGame";
+import StartQuestions from "@/app/components/Game/Start";
+import GameOver from "@/app/components/Game/GameOver";
+import NavOptions from "@/app/components/MainLayout/NavOptions"
 import Trustometer from "@/app/components/Game/Trustometer";
 import Feed from "@/app/components/Game/Feed"
 import Notifications from "@/app/components/Notifications/NotificationsPage";
 import MyProfilePage from "@/app/components/Profile/MyProfile";
 import GeneralProfilePage from "@/app/components/Profile/GeneralProfile";
+
 
 export interface ScoreInterace {
   score: number;
@@ -22,7 +25,6 @@ export interface PrimaryUserInterface {
   userName: string;
   avatar: string;
   interest: string;
-  bio: string;
   following: Set<GeneralUserInterface>;
   follow_requests: Set<GeneralUserInterface>;
   score: ScoreInterace;
@@ -35,16 +37,15 @@ export interface GeneralUserInterface {
   avatar: string;
   interests: string;
   bio: string;
-  points: number;
-  posts: PostType[]
+  posts: PostType[];
+  bias: boolean;  // true = good, false = bad 
 }
 
 export interface PostType {
   key: number;
   message: string;
-  username: string;
-  time: Timestamp;
-  avatar: string;
+  order: number;
+  user: GeneralUserInterface;
 }
 
 export default function Home() {
@@ -63,13 +64,15 @@ export default function Home() {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  const [gameStarted, setGameStarted] = useState(false); // game start form
+  const [gameStarted, setGameStarted] = useState(false); // TODO set to false on push game start form 
   const [showNewPostForm, setShowNewPostForm] = useState(false) // new post form
-  const initialValues: PrimaryUserInterface = { userName: '', avatar: 'blue', interest: 'fashion', bio: '', feed: [], following: new Set(), follow_requests: new Set(), score: { notifications: 0, score: 100, stage: -1 }, posts: [] };
+  const initialValues: PrimaryUserInterface = { userName: 'sparrow', avatar: 'blue', interest: 'fashion', feed: [], following: new Set(), follow_requests: new Set(), score: { notifications: 0, score: 100, stage: -1 }, posts: [] };
   const [user, setUser] = useState<PrimaryUserInterface>(initialValues)
   const [numPosts, setNumPosts] = useState(0) // used for Key
   const [shownProfile, setShownProfile] = useState<GeneralUserInterface>()
   const [middlePanelContent, setMiddlePanelContent] = useState('feed')
+  const [gameOver, setgameOver] = useState(false)
+  const [midGame, setShowMidGame] = useState(false)
 
   const handleStartClick = (values: PrimaryUserInterface) => {
     setGameStarted(true)
@@ -83,29 +86,26 @@ export default function Home() {
   const getBotPosts = async (profile: GeneralUserInterface) => {
     const postarray: PostType[] = []
     const usersCollection = collection(db, 'users') // users collection ref
-
     const postQuery = query(usersCollection,
       where('name', '==', profile.userName)
     );
 
     const querySnapshot = await getDocs(postQuery);
-    const userDocRef = querySnapshot.docs[0].ref;
-    const postsCollection = collection(userDocRef, 'posts'); // posts subcollection ref
 
-    // Now we can query or perform operations on the "posts" subcollection
-    const postsQuerySnapshot = await getDocs(postsCollection);
-    await Promise.all(postsQuerySnapshot.docs.map((doc2) => {
+    let c = 1;
+    await Promise.all(querySnapshot.docs.map((doc2) => {
       const data = doc2.data()
-      const post_obj = {
-        username: profile.userName,
-        avatar: profile.avatar,
-        message: data.message,
-        time: new Timestamp(1000, 0),
-        key: numPosts
-      } as PostType
-
-      setNumPosts(numPosts + 1)
-      postarray.push(post_obj)
+      data.posts.forEach((post: string) => {
+        const post_obj = {
+          message: post,
+          order: c,
+          key: numPosts,
+          user: profile
+        } as PostType
+        setNumPosts(numPosts + 1)
+        postarray.push(post_obj)
+        c++;
+      })
     }))
     return postarray
   }
@@ -126,10 +126,11 @@ export default function Home() {
   const [trustButtonText, setTrustButtonText] = useState('Start')
 
   // handle game state from Trustworthiness tab
-  function startButtonHandler() {
+  function trustStartButtonHandler() {
     const u = { ...user.score }; // shallow copy of obj 
     u.stage = u.stage + 1;
     setUser((oldUser) => ({ ...oldUser, score: u })) // update state to re-render new follow requests
+    setShowMidGame(false)
     setShowTrustButton(false) // hide button
   }
 
@@ -142,21 +143,27 @@ export default function Home() {
       const fetchAccounts = async (s: number) => {
         const usersCollection = collection(db, 'users') // users collection ref
 
-        const initialQuery = query(usersCollection,
+        let initialQuery = query(usersCollection,
           where('stage', '==', s),
           where('interest', '==', user.interest)
         );
+
+        if (s > 0) {
+          initialQuery = query(usersCollection,
+            where('stage', '==', s),
+          );
+        }
 
         const querySnapshot = await getDocs(initialQuery);
         const u = { ...user };
         await Promise.all(querySnapshot.docs.map((doc) => {
           const data = doc.data()
           const fr: GeneralUserInterface = {
-            points: data.points,
             userName: data.name,
             avatar: data.avatar,
             bio: data.bio,
             interests: data.interest,
+            bias: data.bias,
             posts: []
           }
 
@@ -167,13 +174,14 @@ export default function Home() {
 
       fetchAccounts(user.score.stage);
     },
-    [user.score]
+    [user.score.stage]
   )
 
 
   const gameLogicHandler = (profile: GeneralUserInterface, decision: boolean) => {
     const following = new Set(user.following)
     const follow_requests = new Set(user.follow_requests)
+    const newscore = { ...user.score }
 
     // delete follow request
     follow_requests.delete(profile)
@@ -182,19 +190,49 @@ export default function Home() {
     if (decision) {
       // add to followers 
       following.add(profile)
+
+      // handle score update
+      if (profile.bias && newscore.score < 200) {
+        newscore.score += 20
+      } else {
+        newscore.score -= 20
+      }
+    } else {
+      // handle score update
+      if (profile.bias && newscore.score > 0) {
+        newscore.score -= 20
+      } else {
+        newscore.score += 20
+      }
     }
+
+
+    // go to game over if we follow enough people
+    if (user.following.size > 7) {
+      setgameOver(true)
+    }
+
+    if (newscore.score == 0) {
+      setgameOver(true)
+    }
+
+
 
     // if on the last follow request
     if (user.follow_requests.size == 1) {
       // re-add next level button
       setTrustButtonText('See More Profiles')
       setShowTrustButton(true)
+      if (newscore.score < 100 && user.score.stage > 0) {
+        setShowMidGame(true)
+
+      }
     }
 
     // TODO Update state of next button if follow requests is empty YESS
 
     // update user
-    setUser((oldUser) => ({ ...oldUser, following: following, follow_requests: follow_requests }))
+    setUser((oldUser) => ({ ...oldUser, following: following, follow_requests: follow_requests, score: newscore }))
   }
 
   // Update feed when user.following is changed
@@ -219,7 +257,6 @@ export default function Home() {
       // Process the resolved posts
       resolvedPosts.forEach((bot) => {
         bot.forEach((post) => {
-          console.log(post)
           feed2.push(post)
         })
       });
@@ -231,26 +268,39 @@ export default function Home() {
 
 
   return (
-    <main className="text-[color:var(--theme-text)] h-screen">
-      {gameStarted &&
-        <div className="flex flex-row justify-between w-full text-[color:var(--theme-text)] w-full h-5/6">
-          <div className="flex-initial min-w-52 border border-[var(--theme-accent)]">
+    <main className="h-full w-full pb-10">
+      {gameStarted && !gameOver && !midGame &&
+        (<div className="flex flex-row justify-between w-full text-[color:var(--theme-text)] flex-auto h-full">
+          <div className="flex-initial min-w-56 border border-[var(--theme-accent)] rounded-lg">
             <NavOptions NewPostClickHandler={showNewPostHandler} handleChangeCenterPanelClick={middlePanelDisplayHandler} user={user} />
           </div>
-          <div className="h-full w-full border border-[var(--theme-accent)]">
+          <div className="w-full border border-[var(--theme-accent)] rounded-lg overflow-auto h-full">
             {middlePanelContent == 'feed' && <Feed posts={user.feed} handleProfileClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'notifications' && <Notifications handleAcceptDenyClick={gameLogicHandler} user={user} handleProfileClick={middlePanelDisplayHandler} />}
-            {middlePanelContent == 'profile' && <GeneralProfilePage UserObject={shownProfile!} />}
+            {middlePanelContent == 'profile' && <GeneralProfilePage UserObject={shownProfile!} handleBackClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'myprofile' && <MyProfilePage UserObject={user} />}
           </div>
-          <div className="flex w-2/4 border border-[var(--theme-accent)] flex flex-row justify-center">
-            <Trustometer score={user.score} startButtonHandler={startButtonHandler} showButton={showTrustButton} buttonText={trustButtonText} />
+          <div className="flex w-2/5 border border-[var(--theme-accent)] flex flex-row justify-center rounded-lg">
+            <Trustometer score={user.score} startButtonHandler={trustStartButtonHandler} showButton={showTrustButton} buttonText={trustButtonText} />
           </div>
-        </div>}
+        </div>)}
 
-      {!gameStarted && <div className="absolute top-1/4 right-1/4 w-1/2 h-1/2">
+      {!gameStarted && (<div className="absolute top-1/4 right-1/4 w-1/2 h-1/2">
         <StartQuestions incomingSubmit={handleStartClick} initialValues={initialValues} />
-      </div>}
+      </div>)}
+
+      {gameOver && (
+        <div className="absolute top-1/4 right-1/4 w-1/2 h-1/2">
+          <GameOver usr={user} />
+        </div>
+      )}
+
+      {midGame && (
+        <div className="absolute top-1/4 right-1/4 w-1/2 h-1/2">
+          <MidGame usr={user} trustStartButtonHandler={trustStartButtonHandler} />
+        </div>
+      )}
+
     </main>
   );
 }

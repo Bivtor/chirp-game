@@ -33,33 +33,14 @@ const MyProfilePage: React.FC<{ UserObject: PrimaryUserInterface }> = ({ UserObj
             <div>
                 <Image src={avatarUrl} alt='Profile Icon' width={200} />
             </div>
-            <div className='text-lg'>
-                {UserObject.bio}
-            </div>
-            <div className='flex flex-row gap-5'>
+            <div className='flex flex-row gap-5 pb-6Z'>
                 <span>
                     Following: {UserObject.following.size}
                 </span>
                 <span>
                     Followers: {UserObject.following.size}
                 </span>
-
-
             </div>
-
-            <div className='text-lg'>
-                {UserObject.userName}&apos;s Posts:
-            </div>
-
-            {UserObject.posts.length > 0 ? (
-                <div className='flex flex-col w-full gap-t-4 overflow-y-scroll h-full'>
-                    {UserObject.posts.map((post) => (
-                        <Post post={post} key={post.key} />
-                    ))}
-                </div>
-            ) : (
-                <div>No Posts Yet!</div>
-            )}
         </div>
     );
 
