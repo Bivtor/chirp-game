@@ -66,7 +66,7 @@ export default function Home() {
 
   const [gameStarted, setGameStarted] = useState(false); // TODO set to false on push game start form 
   const [showNewPostForm, setShowNewPostForm] = useState(false) // new post form
-  const initialValues: PrimaryUserInterface = { userName: 'sparrow', avatar: 'blue', interest: 'fashion', feed: [], following: new Set(), follow_requests: new Set(), score: { notifications: 0, score: 100, stage: -1 }, posts: [] };
+  const initialValues: PrimaryUserInterface = { userName: 'sparrow', avatar: 'blue', interest: 'entertainment', feed: [], following: new Set(), follow_requests: new Set(), score: { notifications: 0, score: 100, stage: -1 }, posts: [] };
   const [user, setUser] = useState<PrimaryUserInterface>(initialValues)
   const [numPosts, setNumPosts] = useState(0) // used for Key
   const [shownProfile, setShownProfile] = useState<GeneralUserInterface>()
