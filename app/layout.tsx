@@ -18,11 +18,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="sm:px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 w-screen h-screen ">
-      <Head>
-        <link rel="stylesheet" type="text/css" href="loading-bar.css" />
-        <script type="text/javascript" src="loading-bar.js"></script>
-
-      </Head>
       <body className="flex flex-col h-full w-full">
         <Header />
         {children}
