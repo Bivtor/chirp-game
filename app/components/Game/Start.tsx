@@ -100,11 +100,12 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                                         value={values.interest}
                                         onChange={handleChange}
                                     >
+                                        <option value="entertainment">Entertainment</option>
                                         <option value="sports">Sports</option>
                                         <option value="fashion">Fashion</option>
                                         <option value="videogames">Video Games</option>
                                         <option value="politics">Politics</option>
-                                        <option value="entertainment">Entertainment</option>
+
                                     </Field>
                                     <div className='flex justify-center align-items pt-3'>
                                         <button className='text-2xl hover:text-chirp-i' type='submit'>Begin</button>

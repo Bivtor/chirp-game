@@ -145,12 +145,19 @@ export default function Home() {
 
         let initialQuery = query(usersCollection,
           where('stage', '==', s),
-          where('interest', '==', user.interest)
         );
 
-        if (s > 0) {
+        // hot fix for client request
+        if (s == 0) {
           initialQuery = query(usersCollection,
-            where('stage', '==', s),
+            where('stage', '==', 1),
+          );
+        }
+        // hot fix for client request
+        if (s == 1) {
+          initialQuery = query(usersCollection,
+            where('stage', '==', 0),
+            where('interest', '==', user.interest)
           );
         }
 
