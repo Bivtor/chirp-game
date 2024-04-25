@@ -25,7 +25,7 @@ const GameOver: React.FC<{ usr: PrimaryUserInterface }> = ({ usr }) => {
             case (score >= 0 && score < 20):
                 return "Let's try that again";
             default:
-                return "Invalid score";
+                return "Broke the scale!!";
         }
     }
     return (

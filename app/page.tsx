@@ -192,17 +192,21 @@ export default function Home() {
       following.add(profile)
 
       // handle score update
-      if (profile.bias && newscore.score < 200) {
-        newscore.score += 20
+      if (profile.bias) {
+        if (user.score.score <= 180)
+          newscore.score += 20
       } else {
-        newscore.score -= 20
+        if (user.score.score >= 20)
+          newscore.score -= 20
       }
     } else {
       // handle score update
-      if (profile.bias && newscore.score > 0) {
-        newscore.score -= 20
+      if (profile.bias) {
+        if (user.score.score >= 20)
+          newscore.score -= 20
       } else {
-        newscore.score += 20
+        if (user.score.score <= 180)
+          newscore.score += 20
       }
     }
 
