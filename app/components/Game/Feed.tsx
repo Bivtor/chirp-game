@@ -6,7 +6,7 @@ import { GeneralUserInterface } from '@/app/page';
 
 const Feed: React.FC<{ posts: PostType[], handleProfileClick: (show: string, ui?: GeneralUserInterface) => void }> = ({ posts, handleProfileClick }) => {
     return (
-        <div className='flex flex-col gap-t-4'>
+        <div className='h-full w-full'>
             {posts
                 .sort((a, b) => a.order - b.order) // Sort posts by order
                 .map((post) => {

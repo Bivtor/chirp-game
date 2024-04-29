@@ -26,8 +26,8 @@ const MyProfilePage: React.FC<{ UserObject: PrimaryUserInterface }> = ({ UserObj
     }, [UserObject.avatar])
 
     return (
-        <div className='flex flex-col justify-center items-center pt-8 px-6 gap-3 w-full h-full font-montserrat'>
-            <h1 className='text-xl'>
+        <div className='flex flex-col justify-center items-center pt-8 px-6 gap-3 w-full h-full font-montserrat '>
+            <h1 className='text-xl text-chirp-h'>
                 {UserObject.userName}&apos;s Profile
             </h1>
             <div>

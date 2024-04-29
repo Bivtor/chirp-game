@@ -17,10 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="sm:px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 w-screen h-screen ">
-      <body className="flex flex-col h-full w-full">
-        <Header />
-        {children}
+    <html lang="en" className="w-screen h-screen">
+      <body className="h-full w-full">
+        <div className="h-1/6 ">
+          <Header />
+        </div>
+        <div className="h-5/6">
+          {children}
+        </div>
       </body>
     </html>
   );

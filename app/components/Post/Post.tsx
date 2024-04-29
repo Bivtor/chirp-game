@@ -29,21 +29,21 @@ const Post: React.FC<{ post: PostType, handleProfileClick: (show: string, ui?: G
 
     }
     return (
-        <div className='pb-1 pt-4 px-4 flex flex-col justify-start align-start text-[color:var(--theme-text)] border border-[var(--theme-accent)] md:rounded font-montserrat'>
+        <div className='pb-3 pt-4 px-4 flex flex-col text-[color:var(--theme-text)] border border-[var(--theme-accent)] md:rounded font-montserrat'>
             <div className='flex flex-row gap-2'>
                 <div onClick={handleLocalClick} className='hover:cursor-pointer'>
                     {avatarUrl && <Image src={avatarUrl} alt='bird image' width={50} />}
                 </div>
                 <div className='flex flex-col '>
                     <div className='font-normal '>
-                        <span onClick={handleLocalClick} className='text-chirp-i hover:cursor-pointer'>&nbsp;{post.user.userName}</span>
+                        <span onClick={handleLocalClick} className='text-chirp-h hover:cursor-pointer'>&nbsp;{post.user.userName}</span>
                         <span> · </span>
                         <span className='text-chirp-p'>{post.order} {' '} {post.order > 1 ? ' days ago' : ' day ago'}</span>
                     </div>
                     <h5 className='font-semibold text-xs text-chirp-r'>@{post.user.userName}</h5>
                 </div>
             </div>
-            <div className='pb-4 pl-14 text-chirp-i leading-relaxed	' >
+            <div className='pl-14 text-chirp-h leading-relaxed ' >
                 <span>{post.message}</span>
 
             </div>

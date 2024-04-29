@@ -32,13 +32,13 @@ const GeneralProfilePage: React.FC<{ UserObject: GeneralUserInterface, handleBac
                 <div />
 
             </div>
-            <h1 className='text-xl text-chirp-i'>
+            <h1 className='text-xl text-chirp-h'>
                 {UserObject.userName}&apos;s Profile
             </h1>
             <div className=''>
                 <Image src={avatarUrl} alt='Profile Icon' width={100} />
             </div>
-            <div className='text-lg text-chirp-r text-center'>
+            <div className='text-lg text-chirp-p text-center'>
                 {UserObject.bio}
             </div>
 

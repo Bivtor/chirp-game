@@ -47,16 +47,17 @@ export default function Header() {
         };
     }, []);
 
-    // border-3 border-rose-300
     return (
-        <header className="w-full text-[color:var(--theme-text)] flex-initial grow-0">
+        <header className="px-4 w-full text-[color:var(--theme-text)] h-full ">
             <div className="flex justify-between items-center">
-                <Link href='/'>
-                    <div >
-                        <ChirpLogo />
-                    </div>
-                </Link>
-                <div >
+                <div className="md:inline hidden">
+                    <Link href='/'>
+                        <div className=" sm:text-phone-logo text-logo">
+                            <ChirpLogo />
+                        </div>
+                    </Link>
+                </div>
+                <div>
                     <Link href='/'>
                         <Image src={Chirp} alt="Chirp Logo" width={150}>
 

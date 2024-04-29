@@ -23,6 +23,7 @@ const config: Config = {
       },
       fontSize: {
         'logo': '72px', // black 
+        'phone-logo': '66px', // black 
         'heading': '36px', // heavy
         'subheading': '20px', // heavy
         'body': '12px' // avenir(book)

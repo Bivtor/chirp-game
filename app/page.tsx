@@ -281,17 +281,17 @@ export default function Home() {
   return (
     <main className="h-full w-full pb-10">
       {gameStarted && !gameOver && !midGame &&
-        (<div className="flex flex-row justify-between w-full text-[color:var(--theme-text)] flex-auto h-full">
-          <div className="flex-initial min-w-56 border border-[var(--theme-accent)] rounded-lg">
+        (<div className="flex text-[color:var(--theme-text)]  h-full w-full px-4">
+          <div className="w-1/5 md:border border-[var(--theme-accent)] rounded-lg h-full ">
             <NavOptions NewPostClickHandler={showNewPostHandler} handleChangeCenterPanelClick={middlePanelDisplayHandler} user={user} />
           </div>
-          <div className="w-full border border-[var(--theme-accent)] rounded-lg overflow-auto h-full">
+          <div className="w-3/5 h-full md:border border-[var(--theme-accent)] rounded-lg overflow-y-scroll">
             {middlePanelContent == 'feed' && <Feed posts={user.feed} handleProfileClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'notifications' && <Notifications handleAcceptDenyClick={gameLogicHandler} user={user} handleProfileClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'profile' && <GeneralProfilePage UserObject={shownProfile!} handleBackClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'myprofile' && <MyProfilePage UserObject={user} />}
           </div>
-          <div className="flex w-2/5 border border-[var(--theme-accent)] flex flex-row justify-center rounded-lg">
+          <div className="flex w-1/5 md:border border-[var(--theme-accent)] flex flex-row justify-center rounded-lg">
             <Trustometer score={user.score} startButtonHandler={trustStartButtonHandler} showButton={showTrustButton} buttonText={trustButtonText} />
           </div>
         </div>)}

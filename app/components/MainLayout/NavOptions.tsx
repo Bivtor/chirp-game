@@ -26,39 +26,34 @@ const NavOptions: React.FC<{ user: PrimaryUserInterface, NewPostClickHandler: ()
     }
 
     return (
-        <div className="flex flex-column justify-center w-full text-[color:var(--theme-text)] font-montserrat">
-            <ul className="flex flex-col  gap-y-4 py-5">
-                <li className="flex flex-row jusitfy-content align-items hover:text-chirp-c hover:cursor-pointer " onClick={handleChangeCenterPanelToHomeClick}>
-                    <div className="flex flex-row justify-center gap-x-3 items-center ">
-                        <div >
-                            <Image src={Home} width={30} alt="Home Icon">
-                            </Image>
-                        </div>
-                        Home
+        <div className="flex flex-column justify-center content-center w-full text-[color:var(--theme-text)] font-montserrat">
+            <ul className="flex flex-col gap-y-4 py-5">
+                <li className="gap-2 items-center flex content-center hover:text-chirp-h hover:cursor-pointer" onClick={handleChangeCenterPanelToHomeClick}>
+                    <div >
+                        <Image src={Home} width={30} alt="Home Icon">
+                        </Image>
                     </div>
+                    <div className="hidden md:inline align-center">Home</div>
                 </li>
-                <li className="flex flex-row jusitfy-content align-items hover:text-chirp-h hover:cursor-pointer " onClick={handleChangeCenterPanelToNotificationsClick}>
-                    <div className="flex flex-row justify-center gap-x-3 items-center ">
-                        <div className="hover:text-[color:var(--theme-hover)]">
-                            <Image src={Notification} width={30} alt="Notifications Icon">
-                            </Image>
-                        </div>
-                        Follow Requests
-                        {user.follow_requests.size > 0 && (
-                            <p className=" font-sans-400 text-chirp-c relative top-[-5px] right-[8px]">
-                                {user.follow_requests.size}
-                            </p>
-                        )}
+                <li className="flex content-center  hover:text-chirp-h hover:cursor-pointer gap-2 items-center " onClick={handleChangeCenterPanelToNotificationsClick}>
+                    <div className="hover:text-[color:var(--theme-hover)]">
+                        <Image src={Notification} width={30} alt="Notifications Icon">
+                        </Image>
                     </div>
+                    <div className="hidden md:inline align-center ">Follow Requests</div>
+
+                    {user.follow_requests.size > 0 && (
+                        <p className=" font-sans-400 text-chirp-c relative top-[-5px] right-[8px]">
+                            {user.follow_requests.size}
+                        </p>
+                    )}
                 </li>
-                <li className="flex flex-row jusitfy-content align-items  hover:text-chirp-i hover:cursor-pointer" onClick={handleChangeCenterPanelToMyProfileClick}>
-                    <div className="flex flex-row justify-center gap-x-3 items-center ">
-                        <div>
-                            <Image src={Profile} width={30} alt="My Profile Icon">
-                            </Image>
-                        </div>
-                        My Profile
+                <li className="flex content-center  hover:text-chirp-h hover:cursor-pointer gap-2 items-center " onClick={handleChangeCenterPanelToMyProfileClick}>
+                    <div>
+                        <Image src={Profile} width={30} alt="My Profile Icon">
+                        </Image>
                     </div>
+                    <div className="hidden md:inline align-center">My Profile</div>
                 </li>
             </ul>
 

@@ -1,7 +1,7 @@
 
 export default function ChirpLogo() {
     return (
-        <div className="flex flex-row text-logo font-montserrat">
+        <div className="flex flex-row font-montserrat">
             <p className="text-chirp-c">C</p>
             <p className="text-chirp-h">H</p>
             <p className="text-chirp-i">I</p>
