@@ -32,7 +32,7 @@ const Trustometer: React.FC<{ score: ScoreInterace, startButtonHandler: () => vo
 
     return (
         <div className='font-montserrat flex flex-col items-center justify-start gap-4 py-5 text-[color:var(--theme-text)] '>
-            <div className="flex flex-row text-4xl font-montserrat">
+            <div className="hidden md:flex md:text-4xl font-montserrat">
                 <p className="text-chirp-c">T</p>
                 <p className="text-chirp-h">r</p>
                 <p className="text-chirp-i">u</p>
@@ -49,7 +49,7 @@ const Trustometer: React.FC<{ score: ScoreInterace, startButtonHandler: () => vo
                 {score.score}
             </h2>
 
-            {score.stage > 0 && (<h3 className='text-2xl text-chirp-h text-center'>
+            {score.stage > 0 && (<h3 className='md:text-2xl text-chirp-h text-center'>
                 {getScoreMessage(score.score)}
             </h3>)}
 
