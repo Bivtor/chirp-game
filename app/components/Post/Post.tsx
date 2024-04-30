@@ -44,7 +44,7 @@ const Post: React.FC<{ post: PostType, handleProfileClick: (show: string, ui?: G
                     <h5 className='font-semibold text-xs text-chirp-r'>@{post.user.userName}</h5>
                 </div>
             </div>
-            <div className='text-sm md:text-normal pl-14 text-chirp-h leading-relaxed ' >
+            <div className='text-xs md:text-normal pl-14 text-chirp-h leading-relaxed ' >
                 <span>{post.message}</span>
 
             </div>

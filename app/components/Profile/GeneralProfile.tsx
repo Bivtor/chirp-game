@@ -26,8 +26,8 @@ const GeneralProfilePage: React.FC<{ UserObject: GeneralUserInterface, handleBac
     return (
         <div className='font-montserrat flex flex-col justify-center items-center pt-3 md:pt-8 px-6 gap-1'>
             <div className='flex flex-row items-center justify-between px-4 w-full'>
-                <h2 className='hover:text-chirp-p hover:cursor-pointer' onClick={handleBackClickLocal}>
-                    Back
+                <h2 className='text-sm hover:text-chirp-p hover:cursor-pointer' onClick={handleBackClickLocal}>
+                    back
                 </h2>
                 <div />
 
