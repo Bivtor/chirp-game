@@ -111,6 +111,10 @@ export default function Home() {
   }
 
   const middlePanelDisplayHandler = async (show: string, profile?: GeneralUserInterface) => {
+
+    // prevent repeats on same user
+    if (show == 'profile' && shownProfile == profile) return;
+
     // make sure 'shownprofile' is set to correct profile
     if (show == 'profile' && profile) {
       const botposts = await getBotPosts(profile!)
@@ -177,6 +181,12 @@ export default function Home() {
           u.follow_requests.add(fr)
         }))
         setUser(u)
+
+
+        // if you deny all of the people 
+        if (u.follow_requests.size < 1 && user.score.stage > 0) {
+          setgameOver(true)
+        }
       }
 
       fetchAccounts(user.score.stage);
@@ -307,9 +317,7 @@ export default function Home() {
       )}
 
       {midGame && (
-        <div className="absolute top-1/4 right-1/4 w-1/2 h-1/2">
-          <MidGame usr={user} trustStartButtonHandler={trustStartButtonHandler} />
-        </div>
+        <MidGame usr={user} trustStartButtonHandler={trustStartButtonHandler} />
       )}
 
     </main>

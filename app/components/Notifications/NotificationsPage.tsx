@@ -14,7 +14,7 @@ const Notifications: React.FC<{ handleAcceptDenyClick: (followee: GeneralUserInt
                         <Notification user_from_requests={fr} key={fr.userName} handleProfileClick={handleProfileClick} handleAcceptDenyClick={handleAcceptDenyClick} />
                     ))
                 ) : (
-                    <div>No follow requests</div>
+                    <div></div>
                 )}
             </div>
         </div>

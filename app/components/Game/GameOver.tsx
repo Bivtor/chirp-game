@@ -39,6 +39,12 @@ const GameOver: React.FC<{ usr: PrimaryUserInterface }> = ({ usr }) => {
             <h3 className="text-chirp-p text-2xl text-center">
                 {getScoreMessage(usr.score.score)}
             </h3>
+
+            <h3 className="text-chirp-r text-center text-xl hover:text-chirp-i hover:cursor-pointer">
+                <a href={'/'}>
+                    Play Again?
+                </a>
+            </h3>
         </div>
 
     )

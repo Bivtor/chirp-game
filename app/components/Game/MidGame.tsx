@@ -8,8 +8,8 @@ const MidGame: React.FC<{ usr: PrimaryUserInterface, trustStartButtonHandler: ()
 
     }
     return (
-        <div className="text-[color:var(--theme-text)] flex flex-col justify-center content-center gap-6 font-montserrat">
-            <span className="text-chirp-h text-lg text-center italic leading-8 w-max">
+        <div className="text-[color:var(--theme-text)] flex flex-col py-20 content-center gap-6 font-montserrat h-full w-full px-6">
+            <div className="text-chirp-h text-lg text-center italic leading-8">
                 <span className="text-chirp-c">Think about some red flags in the follow requests you accepted:<br /></span>
 
                 Did they use alienating language (us vs. them)?<br />
@@ -18,15 +18,10 @@ const MidGame: React.FC<{ usr: PrimaryUserInterface, trustStartButtonHandler: ()
 
 
 
-            </span>
-
-
-            <h3 onClick={trustStartButtonHandlerLocal} className='text-chirp-c hover:text-chirp-p hover:cursor-pointer text-center'>
-                Okay
-            </h3>
-
-
-
+                <h3 onClick={trustStartButtonHandlerLocal} className='text-chirp-c hover:text-chirp-p hover:cursor-pointer text-center'>
+                    Okay
+                </h3>
+            </div>
         </div>
 
     )
