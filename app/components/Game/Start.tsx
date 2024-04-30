@@ -17,7 +17,7 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
     return (
         <div>
             {showIntroMessage ? (
-                <div className='flex flex-col w-full gap-5 text-[color:var(--theme-text)] text-normal md:text-xl rounded-md md:pb-6 font-montserrat align-items justify-center text-chirp-h italic tracking-wide leading-relaxed'>
+                <div className='flex flex-col w-full gap-5 text-normal text-sm md:text-xl rounded-md md:pb-6 font-montserrat align-items justify-center text-chirp-h italic tracking-wide leading-relaxed'>
                     <span className='text-align text-center text-chirp-r '>
                         Hey there!
                     </span>
@@ -38,7 +38,7 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                             Join Chirp Today
                         </span>
                     </div>
-                    <div className="w-full h-full pb-3 md:text-lg">
+                    <div className="w-full h-full pb-3 md:text-lg ">
                         <Formik
                             initialValues={initialValues}
                             onSubmit={(values, actions) => {
@@ -58,7 +58,7 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                                     <label htmlFor="userName">Bird Type</label>
                                     <Field
                                         as='select'
-                                        className='bg-[var(--theme-accent)] text-chirp-r'
+                                        className='bg-[var(--theme-accent)] text-chirp-r text-sm md:text-normal'
                                         id="userName"
                                         name="userName"
                                         value={values.userName}
@@ -76,7 +76,7 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                                     <label htmlFor="avatar">Color</label>
                                     <Field
                                         as='select'
-                                        className='bg-[var(--theme-accent)] text-chirp-h'
+                                        className='bg-[var(--theme-accent)] text-chirp-h text-sm md:text-normal'
                                         id="avatar"
                                         name="avatar"
                                         value={values.avatar}
@@ -94,7 +94,7 @@ const StartQuestions: React.FC<{ initialValues: PrimaryUserInterface, incomingSu
                                     <label htmlFor="interest">Theme</label>
                                     <Field
                                         as='select'
-                                        className='bg-[var(--theme-accent)] text-chirp-i'
+                                        className='bg-[var(--theme-accent)] text-chirp-i text-sm md:text-normal'
                                         id="interest"
                                         name="interest"
                                         value={values.interest}
