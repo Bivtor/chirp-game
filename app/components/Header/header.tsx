@@ -48,7 +48,7 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="px-4 w-full text-[color:var(--theme-text)] h-full ">
+        <header className="md:px-4 w-full text-[color:var(--theme-text)] h-full">
             <div className="flex justify-between items-center">
                 <div className="md:inline hidden">
                     <Link href='/'>

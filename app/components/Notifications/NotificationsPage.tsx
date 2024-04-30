@@ -6,7 +6,7 @@ const Notifications: React.FC<{ handleAcceptDenyClick: (followee: GeneralUserInt
     return (
         <div className='p-4 flex flex-col justify-center px-4 font-montserrat gap-3'>
             <h1 className='text-center text-lg'>
-                Notifications
+                Follow Requests
             </h1>
             <div>
                 {user.follow_requests.size > 0 ? (

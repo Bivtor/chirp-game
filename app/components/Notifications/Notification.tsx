@@ -37,16 +37,18 @@ const Notification: React.FC<{ user_from_requests: GeneralUserInterface, handleP
     }
 
     return (
-        <div className='w-full flex flex-col justify-center center-content border border-[var(--theme-accent)] gap-3 p-4 md:rounded'>
+        <div className='w-full flex flex-col justify-center center-content border border-[var(--theme-accent)] gap-3 p-4 rounded-md'>
             <div className='flex flex-row justify-start items-center gap-2'>
                 <div onClick={handleProfileClickLocal} className='hover:cursor-pointer'>
                     <Image src={avatarUrl} width={50} alt='Profile Image'></Image>
                 </div>
                 <div className='flex flex-row gap-1'>
-                    <h2 className='text-chirp-r font-semibold hover:cursor-pointer' onClick={handleProfileClickLocal}>
+                    <h2 className='text-chirp-h font-semibold hover:cursor-pointer' onClick={handleProfileClickLocal}>
                         {user_from_requests.userName}
                     </h2>
-                    would like to follow you
+                    <span className='hidden md:inline '>
+                        would like to follow you
+                    </span>
                 </div>
             </div>
             <div className='flex flex-row gap-4'>

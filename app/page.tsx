@@ -282,10 +282,10 @@ export default function Home() {
     <main className="h-full w-full pb-10">
       {gameStarted && !gameOver && !midGame &&
         (<div className="flex text-[color:var(--theme-text)]  h-full w-full px-4">
-          <div className="w-1/5 md:border border-[var(--theme-accent)] rounded-lg h-full ">
+          <div className="md:w-1/5 md:border border-[var(--theme-accent)] rounded-lg h-full">
             <NavOptions NewPostClickHandler={showNewPostHandler} handleChangeCenterPanelClick={middlePanelDisplayHandler} user={user} />
           </div>
-          <div className="w-3/5 h-full md:border border-[var(--theme-accent)] rounded-lg overflow-y-scroll">
+          <div className="h-full w-full md:border border-[var(--theme-accent)] rounded-lg overflow-y-scroll">
             {middlePanelContent == 'feed' && <Feed posts={user.feed} handleProfileClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'notifications' && <Notifications handleAcceptDenyClick={gameLogicHandler} user={user} handleProfileClick={middlePanelDisplayHandler} />}
             {middlePanelContent == 'profile' && <GeneralProfilePage UserObject={shownProfile!} handleBackClick={middlePanelDisplayHandler} />}

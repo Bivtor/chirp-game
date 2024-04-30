@@ -37,13 +37,14 @@ const Post: React.FC<{ post: PostType, handleProfileClick: (show: string, ui?: G
                 <div className='flex flex-col '>
                     <div className='font-normal '>
                         <span onClick={handleLocalClick} className='text-chirp-h hover:cursor-pointer'>&nbsp;{post.user.userName}</span>
-                        <span> · </span>
-                        <span className='text-chirp-p'>{post.order} {' '} {post.order > 1 ? ' days ago' : ' day ago'}</span>
+                        <span className='hidden md:inline'> · </span>
+
+                        <span className='hidden md:inline text-chirp-p'>{post.order} {' '} {post.order > 1 ? ' days ago' : ' day ago'}</span>
                     </div>
                     <h5 className='font-semibold text-xs text-chirp-r'>@{post.user.userName}</h5>
                 </div>
             </div>
-            <div className='pl-14 text-chirp-h leading-relaxed ' >
+            <div className='text-sm md:text-normal pl-14 text-chirp-h leading-relaxed ' >
                 <span>{post.message}</span>
 
             </div>

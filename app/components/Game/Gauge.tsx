@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import SvgGauge, { GaugeOptions, GaugeInstance } from 'svg-gauge'
 
-const Gauge = ({ value }: Props) => {
+const Gauge = ({ value, size }: Props) => {
     const gaugeEl = useRef<HTMLDivElement>(null)
     const gaugeRef = useRef<GaugeInstance | null>(null)
     useEffect(() => {
@@ -15,7 +15,7 @@ const Gauge = ({ value }: Props) => {
     }, [value])
 
     return (
-        <div style={{ width: '120px', height: '120px' }}>
+        <div style={{ width: size, height: size }}>
             <div ref={gaugeEl} className='text-chirp-h' />
         </div>
     )
@@ -23,6 +23,8 @@ const Gauge = ({ value }: Props) => {
 
 interface Props {
     value: number
+    size: string
+
 }
 
 export default Gauge

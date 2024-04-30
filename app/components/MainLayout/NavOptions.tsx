@@ -26,8 +26,8 @@ const NavOptions: React.FC<{ user: PrimaryUserInterface, NewPostClickHandler: ()
     }
 
     return (
-        <div className="flex flex-column justify-center content-center w-full text-[color:var(--theme-text)] font-montserrat">
-            <ul className="flex flex-col gap-y-4 py-5">
+        <div className="w-full text-[color:var(--theme-text)] font-montserrat">
+            <ul className="flex flex-col gap-y-4 py-5 justify-center content-center ">
                 <li className="gap-2 items-center flex content-center hover:text-chirp-h hover:cursor-pointer" onClick={handleChangeCenterPanelToHomeClick}>
                     <div >
                         <Image src={Home} width={30} alt="Home Icon">
@@ -35,7 +35,7 @@ const NavOptions: React.FC<{ user: PrimaryUserInterface, NewPostClickHandler: ()
                     </div>
                     <div className="hidden md:inline align-center">Home</div>
                 </li>
-                <li className="flex content-center  hover:text-chirp-h hover:cursor-pointer gap-2 items-center " onClick={handleChangeCenterPanelToNotificationsClick}>
+                <li className="flex content-center hover:text-chirp-h hover:cursor-pointer gap-2 items-center " onClick={handleChangeCenterPanelToNotificationsClick}>
                     <div className="hover:text-[color:var(--theme-hover)]">
                         <Image src={Notification} width={30} alt="Notifications Icon">
                         </Image>

@@ -32,17 +32,27 @@ const Trustometer: React.FC<{ score: ScoreInterace, startButtonHandler: () => vo
 
     return (
         <div className='font-montserrat flex flex-col items-center justify-start gap-4 py-5 text-[color:var(--theme-text)] '>
-            <div className="hidden md:flex md:text-4xl font-montserrat">
-                <p className="text-chirp-c">T</p>
-                <p className="text-chirp-h">r</p>
-                <p className="text-chirp-i">u</p>
-                <p className="text-chirp-r">s</p>
-                <p className="text-chirp-p">t</p>
-                <p>ometer</p>
+            <div>
+                <div className="text-small flex xl:text-4xl font-montserrat text-center">
+                    <p className="text-chirp-c">T</p>
+                    <p className="text-chirp-h">r</p>
+                    <p className="text-chirp-i">u</p>
+                    <p className="text-chirp-r">s</p>
+                    <p className="text-chirp-p">t</p>
+                    <p className='hidden xl:inline'>ometer</p>
+                </div>
+                <div className='flex flex-col xl:hidden justify-center center-content'>
+                    <p className='text-center'>o</p>
+                    <p className='text-center'>meter</p>
+                </div>
             </div>
 
-            <div>
-                <Gauge value={score.score} />
+
+            <div className='md:inline hidden'>
+                <Gauge value={score.score} size='120px' />
+            </div>
+            <div className='md:hidden'>
+                <Gauge value={score.score} size='80px' />
             </div>
 
             <h2 className='font-bold text-chirp-c'>
