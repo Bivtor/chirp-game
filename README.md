@@ -2,7 +2,7 @@
 
   <!-- Title -->
 
- <!-- <img src="public/assets/icons/chirp.svg" alt="logo" width="200" height="auto" /> -->
+<img src="public/assets/icons/icon.svg" alt="logo" width="200" height="auto" />
 <h1><strong>Chirp</strong></h1>
   <!-- Badges -->
   <p>
@@ -34,7 +34,7 @@
 
 ### Summary
 
-I worked with a team from American University to compete in the AU Invent 2 Prevent Challenge, a nationwide competition hosted by the Department of Homeland Security. The challenge aims to create and fund a curriculum for American middle schools to help prevent targeted violence. Our team developed Chirp, an online game that mimics the unfiltered content one might encounter while scrolling through Twitter. Chirp was integrated into the team's presentation and was used in a Washington, D.C., middle school, where it elicited a positive response from the students. You can find results of the demonstration here
+I worked with a team from American University to compete in the AU Invent 2 Prevent Challenge, a nationwide competition hosted by the Department of Homeland Security. The challenge aims to create and fund a curriculum for American middle schools to help prevent targeted violence. Our team developed Chirp, an online game that mimics the unfiltered content one might encounter while scrolling through Twitter. Chirp was integrated into the team's presentation and was used in a Washington, D.C., middle school, where it elicited a positive response from the students.
 
 <!-- Tech Stack -->
 
