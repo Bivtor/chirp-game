@@ -34,7 +34,7 @@
 
 ### Summary
 
-I worked with a team from American University to compete in the AU Invent 2 Prevent Challenge, a nationwide competition hosted by the Department of Homeland Security. The challenge aims to create and fund a curriculum for American middle schools to help prevent targeted violence. Our team developed Chirp, an online game that mimics the unfiltered content one might encounter while scrolling through Twitter. Chirp was integrated into the team's presentation and was used in a Washington, D.C., middle school, where it elicited a positive response from the students.
+I worked with a team from American University to compete in the AU Invent 2 Prevent Challenge, a nationwide competition hosted by the Department of Homeland Security. The challenge aims to create and fund a curriculum for American middle schools to help prevent targeted violence. Our team developed Chirp, an online game that mimics the unfiltered content one might encounter while scrolling through Twitter. Chirp was integrated into the team's presentation and was used in a Washington, D.C., middle school, where it elicited a positive response from the students. You can see the live version [here](https://www.chirp-game.com/)
 
 <!-- Tech Stack -->
 
